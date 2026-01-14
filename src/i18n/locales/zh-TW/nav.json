@@ -1,0 +1,22 @@
+{
+	"home": "首頁",
+	"service": "服務項目",
+	"serviceMenu": {
+		"cloudService": "雲端平台服務",
+		"software": "ERP商用軟體",
+		"hardware": "商用主機規劃",
+		"web-design" : "網頁設計",
+		"project" : "政府計畫專案",
+		"class" : "多元專業訓練課程"
+	},
+	"about": "關於我們",
+	"portfolio": "作品案例",
+	"portfolioMenu": {
+		"web": "網頁",
+		"project": "政府計畫專案"
+	},
+	"news": "最新消息",
+	"blog": "知識分享",
+	"qa": "常見問題",
+	"contact": "聯絡我們"
+}

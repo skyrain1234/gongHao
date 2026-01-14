@@ -1,0 +1,41 @@
+{
+	"contact": {
+		"headOffice": "Head Office",
+		"questionLine": "If you have any questions, feel free to contact us."
+	},
+	"groups": {
+		"about": {
+			"title": "About Us",
+			"items": ["Company Profile", "Awards", "Contact Us", "Latest News"]
+		},
+		"services": {
+			"title": "Services",
+			"items": [
+				"ERP Business Software",
+				"Cloud App Platform",
+				"Business Server Solutions",
+				"Web Design",
+				"Government Subsidy Projects",
+				"Diverse Professional Training Courses"
+			]
+		},
+		"faq": {
+			"title": "Q&A",
+			"items": ["Frequently Asked Questions"]
+		},
+
+		"download": {
+			"title": "Downloads",
+			"items": ["Warranty Certificate Download", "JBS Software Manuals"]
+		},
+
+		"link": {
+			"title": "Quick Links",
+			"items": ["Latest News", "Knowledge Sharing", "Case Studies"]
+		}
+	},
+	"bottom": {
+		"keywords": "Cloud services, cybersecurity planning, ESG implementation, dashboard solutions, AI integration, ERP solutions, web design, app development",
+		"copyright": "© {year} Codense Creative Information Technology Co., Ltd. All Rights Reserved. Design by 華越資通"
+	}
+}

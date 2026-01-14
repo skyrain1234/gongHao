@@ -1,0 +1,79 @@
+{
+	"service": {
+		"title": "Our Services",
+		"subtitle": "Experts in Cloud Solutions / Your Best Partner for Digital Transformation",
+		"more": "Learn More",
+
+		"cloud": {
+			"label": "Cloud Solutions",
+			"desc": "Cloud services / Cybersecurity / ESG implementation / BI dashboards",
+			"desc2": "Cloud migration for websites and applications with AI integration"
+		},
+		"erp": {
+			"label": "ERP Business Software",
+			"desc": "JBS ERP / Customization / Mobile Apps",
+			"desc2": "Covering inventory, manufacturing, approval workflows, and analytics to standardize, streamline, and scale business operations"
+		},
+		"web": {
+			"label": "Web Design",
+			"desc": "RWD corporate websites / E-commerce platforms",
+			"desc2": "Built around brand identity and user experience to drive engagement, conversion, and long-term business growth"
+		},
+		"gov": {
+			"label": "Government Grant Projects",
+			"desc": "SBIR / CITD / Digital transformation consulting",
+			"desc2": "Helping businesses apply for government subsidies to optimize resources, enhance efficiency, and build sustainable competitive advantage"
+		},
+		"hardware": {
+			"label": "Business Hardware Solutions",
+			"desc": "Servers / POS systems / IT infrastructure planning",
+			"desc2": "Reliable hardware deployment and network architecture to ensure high performance and business continuity"
+		},
+		"training": {
+			"label": "Professional Training Programs",
+			"desc": "Strategy / IT applications / Marketing management",
+			"desc2": "Hands-on training and case studies to build digital capabilities and accelerate talent development"
+		}
+	},
+	"partners": {
+		"title": "Our Clients",
+		"subtitle": "Long-term support and continuous innovation to drive sustainable growth.",
+		"viewList": "View all",
+		"customerList": "Customer List"
+	},
+	"news": {
+		"sectionLabel": "Latest News",
+		"title": "Latest News",
+		"more": "View More",
+		"moreAria": "View More"
+	},
+	"intro": {
+		"cloud": {
+			"title": "Your Cloud Service Platform Expert",
+			"list": {
+				"cloud": "Cloud Services",
+				"security": "Information Security Planning",
+				"esg": "ESG Framework Planning",
+				"warroom": "Operations Dashboard Planning"
+			}
+		},
+		"digital": {
+			"title": "The First Choice for Enterprise Digitalization",
+			"list": {
+				"ai": "AI Integration",
+				"erp": "ERP Services",
+				"webapp": "Website & App Design"
+			}
+		}
+	},
+	"serviceRight": {
+		"top": {
+			"title": "Experts in Cloud Service Platforms",
+			"sub": "Cloud Services / Cybersecurity / ESG Enablement / Situation Planning"
+		},
+		"bottom": {
+			"title": "Your First Choice for Business Digitalization",
+			"sub": "AI Adoption / ERP Services / Website & App Design"
+		}
+	}
+}

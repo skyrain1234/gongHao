@@ -1,0 +1,31 @@
+{
+	"fields": {
+		"company": "Company Name",
+		"pointOfContact": "Contact Person",
+		"companyAddress": "Company Address",
+		"phone": "Phone Number",
+		"email": "Email Address",
+		"service": "Service",
+		"subject": "Subject",
+		"message": "Message",
+		"note": "Notes (≤20 chars)",
+		"industry": "Industry",
+		"taxId": "Tax ID"
+	},
+	"buttons": {
+		"submit": "Submit",
+		"reset": "Clear"
+	},
+	"serviceOptions": {
+		"cloud": "Cloud App Services",
+		"software": "Business Software",
+		"hardware": "Business Hardware & Peripherals",
+		"web": "Web Design",
+		"grant": "Government Grant Projects",
+		"course": "Course Consultation",
+		"other": "Other"
+	},
+	"placeholders": {
+		"servicePlaceholder": "Select a service"
+	}
+}

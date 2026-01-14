@@ -1,0 +1,327 @@
+/* News 頁預設（淺色） */
+.page-news,
+.latestNews {
+	--news-bg: rgba(255, 255, 255, 0.8);
+	--news-shadow: 0 18px 40px rgba(15, 23, 42, 0.18);
+	--news-class-color: #334155;
+	--news-date-color: #64748b;
+	--news-card-shadow-hover: 0 10px 24px rgba(0, 0, 0, 0.12);
+	--news-card-bg: #ffffff;
+}
+/* Portfolio 頁預設（淺色）*/
+.page-portfolio {
+	--portfolio-bg: rgba(255, 255, 255, 0.82);
+	--portfolio-shadow: 0 18px 40px rgba(15, 23, 42, 0.18);
+	--portfolio-card-bg: #ffffff;
+	--portfolio-tag-bg: rgba(15, 23, 42, 0.85);
+	--portfolio-meta-color: #64748b;
+}
+
+/* 產品頁主題（顏色版，精簡） */
+.page-product {
+	/* 1. Hero.vue */
+	--product-hero-bg: linear-gradient(135deg, #e0f2fe, #eff6ff);
+	--product-hero-title-color: #0f172a;
+	--product-hero-sub-color: #475569;
+
+	/* 2. ProductCarousel.vue：卡片 & overlay 顏色 */
+	--product-list-overlay-bg: rgba(255, 255, 255, 0.5);
+	--product-card-bg: #ffffff;
+	--product-card-title-color: #1e293b;
+	--product-card-text-color: #64748b;
+
+	/* 3. Manual.vue：區塊 & 卡片顏色 */
+	--manual-bg: linear-gradient(135deg, #e0f2fe, #eff6ff);
+	--manual-card-bg: rgba(255, 255, 255, 0.9);
+	--manual-icon-color: var(--color-primary, #007bff);
+
+	/* 4. Hardware.vue：頂部介紹區 */
+	--hardware-title-bg: #46577e;
+	--hardware-title-card-bg: rgba(255, 255, 255, 0.6);
+	--hardware-title-card-text-color: #1f2933;
+	--hardware-title-card-divider: rgba(255, 255, 255, 0.4);
+	--hardware-title-img-border: #ffffff;
+
+	/* 5. Hardware.vue：服務流程 Steps 區塊（淺色版） */
+	--product-steps-text: #f5f5f5;
+	--product-steps-font-family: "Noto Sans TC", system-ui, -apple-system,
+		BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+	/* 上方時間軸線條 */
+	--product-steps-line-bg: rgba(153, 204, 255, 0.6);
+
+	/* 節點（一般） */
+	--product-steps-node-size: 56px;
+	--product-steps-node-border: #9ccff5;
+	--product-steps-node-border-width: 4px;
+	--product-steps-node-bg: #e4f3ff;
+	--product-steps-node-color: #5c9ed7;
+	--product-steps-node-shadow-hover: rgba(156, 207, 245, 0.35);
+
+	/* 節點（active） */
+	--product-steps-node-active-bg: #5c9ed7;
+	--product-steps-node-active-color: #ffffff;
+	--product-steps-node-active-border: #5c9ed7;
+	--product-steps-node-active-shadow: rgba(92, 158, 215, 0.4);
+
+	/* 下方卡片 */
+	--product-steps-panel-radius: 8px;
+	--product-steps-panel-bg: #457297;
+	--product-steps-panel-bg-alt: #39556d;
+	--product-steps-panel-border: rgba(185, 185, 185, 0.05);
+	--product-steps-panel-title-color: #ffffff;
+	--product-steps-panel-text-color: #d0d0d0;
+
+	/* 手機縮小節點 */
+	--product-steps-node-size-sm: 44px;
+	--product-steps-node-border-width-sm: 3px;
+
+	/* 6. Hardware.vue：伺服器主機區塊 */
+	--hardware-goods-bg: #46577e;
+	--hardware-goods-text: #ffffff;
+	--hardware-goods-section-title-color: #ffffff;
+	--hardware-box-bg: rgba(255, 255, 255, 0.12);
+	--hardware-box-bg-hover: rgba(255, 255, 255, 0.18);
+	--hardware-box-radius: 12px;
+	--hardware-subtitle-color: #ffffff;
+	--hardware-list-bullet-color: #ffe17b;
+	--hardware-list-text-color: #ffffff;
+
+	/* 7. Hardware.vue：POS & 周邊卡片區 */
+	--hardware-display-card-bg: #ffffff;
+	--hardware-display-card-title-color: #333333;
+	--hardware-display-card-subtitle-color: #333333;
+	--hardware-display-card-card-bg: #ffffff;
+	--hardware-display-card-card-radius: 14px;
+	--hardware-display-card-card-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+	--hardware-display-card-card-shadow-hover: 0 10px 24px rgba(0, 0, 0, 0.15);
+	--hardware-display-card-title-text-color: #222222;
+	--hardware-display-card-desc-color: #666666;
+
+	/* 8. Cloud 產品頁（雲端 / AI 導入） */
+	--product-cloud-hero-bg: rgba(255, 255, 255, 0.65);
+	--product-cloud-hero-title-color: #0f0f10;
+	--product-cloud-hero-sub-color: #555555;
+
+	--product-cloud-card-main-bg: #84c7dd; /* 藍色斜切 */
+	--product-cloud-card-base-bg: #d8e1e5; /* 右下角淡灰底 */
+	--product-cloud-card-title-color: #ffffff;
+	--product-cloud-card-subtitle-color: #ffffff;
+
+	--product-cloud-image-shadow: 0 8px 18px rgba(0, 0, 0, 0.18);
+	--product-cloud-image-shadow-hover: 0 16px 30px rgba(0, 0, 0, 0.28);
+}
+
+/* =========================================
+ * 深色主題（全站共用）
+ 用法：在最外層（#app 或 body）加 class="theme-dark"
+ * ======================================= */
+.theme-dark {
+	/* === 背景 & 文字 === */
+	--bg-page: #020617; /* 全站背景 */
+	--bg-surface: #020617; /* 區塊 / 卡片的預設底色 */
+
+	--color-text-main: #e5e7eb;
+	--color-text-muted: #9ca3af;
+	--color-text-inverse: #020617;
+
+	/* === 品牌色 / 按鈕 === */
+	--color-primary: #38bdf8;
+	--color-primary-dark: #0ea5e9;
+	--color-primary-light: #e0f2fe;
+
+	--btn-primary-bg: #0ea5e9;
+	--btn-primary-bg-hover: #0284c7;
+	--btn-primary-bg-strong: #0369a1;
+
+	/* === 狀態色（可選：想要也變深色就改）=== */
+	--color-success: #22c55e;
+	--color-warning: #facc15;
+	--color-danger: #f97373;
+
+	/* === 陰影 === */
+	--shadow-soft: 0 8px 20px rgba(15, 23, 42, 0.7);
+	--shadow-elevated: 0 18px 40px rgba(15, 23, 42, 0.85);
+
+	/* === Footer === */
+	--footer-bg: linear-gradient(180deg, #020617, #020617);
+	--footer-text: #e5e7eb;
+	--footer-icon: #93c5fd;
+
+	--footer-link: #bfdbfe;
+	--footer-link-underline: rgba(191, 219, 254, 0.7);
+	--footer-hr-opacity: 0.35;
+
+	/* 各頁面的背景圖（有需要再改路徑就好） */
+	--bg-about-image: none;
+	--bg-image: none;
+
+	/* === 首頁服務卡片（svc）=== */
+	--svc-bg: #020617;
+	--svc-text: #e5e7eb;
+	--svc-muted: #9ca3af;
+
+	--svc-ring: rgba(56, 189, 248, 0.32);
+	--svc-border: rgba(148, 163, 184, 0.4);
+	--svc-shadow: 0 16px 40px rgba(15, 23, 42, 0.9);
+	--svc-hover-shadow: 0 22px 55px rgba(15, 23, 42, 0.98);
+
+	/* === Tab pill === */
+	--tab-pill-bg: rgba(15, 23, 42, 0.8);
+	--tab-pill-hover-bg: rgba(15, 23, 42, 0.9);
+
+	--tab-pill-active-bg: #38bdf8;
+	--tab-pill-active-color: #0b1220;
+
+	/* 額外補上一般文字顏色＆邊框色（你的 tab.css 有用到）*/
+	--tab-pill-color: #e5e7eb;
+	--tab-pill-border-color: rgba(148, 163, 184, 0.6);
+
+	/* =================================
+	 * Navbar：玻璃底 / 文字 / dropdown
+	 * =============================== */
+
+	/* 滾動後 navbar 背景＋玻璃感 */
+	--navbar-bg-scroll: rgba(15, 23, 42, 0.96);
+	--navbar-blur: 18px;
+
+	/* 手機版 navbar 背景（如果有用到） */
+	--navbar-bg-mobile: rgba(15, 23, 42, 0.98);
+	--navbar-blur-mobile: 18px;
+
+	/* 手機 collapse 下拉背景 / 陰影（如果有用到） */
+	--navbar-collapse-bg: rgba(15, 23, 42, 0.98);
+	--navbar-collapse-shadow: 0 18px 40px rgba(15, 23, 42, 0.9);
+
+	/* 上層主選單連結顏色 */
+	--navbar-link-color: #e5e7eb; /* 預設字 */
+	--navbar-link-active-color: #38bdf8; /* hover / active */
+
+	/* Dropdown 容器 */
+	--navbar-dropdown-bg: #020617;
+	--navbar-dropdown-border: rgba(148, 163, 184, 0.45);
+	--navbar-dropdown-shadow: 0 20px 50px rgba(15, 23, 42, 0.95);
+
+	/* Dropdown 文字顏色 */
+	--navbar-dropdown-link-color: #e5e7eb;
+	--navbar-dropdown-link-hover-color: #38bdf8;
+	--navbar-dropdown-hover-bg: rgba(15, 23, 42, 0.85);
+
+	/* Home 頁面背景（漸層） */
+	--home-hero-bg: linear-gradient(180deg, #0b1120, #020617);
+	--home-section-bg: linear-gradient(180deg, #020617, #0b1120);
+	--home-news-bg: linear-gradient(180deg, #020617, #0b1120);
+}
+
+/* 深色模式下 News 區 */
+.theme-dark .page-news,
+.theme-dark .latestNews {
+	--news-bg: rgba(15, 23, 42, 0.92);
+	--news-shadow: 0 22px 50px rgba(15, 23, 42, 0.95);
+	--news-class-color: #e2e8f0;
+	--news-date-color: #94a3b8;
+	--news-card-bg: #020617;
+}
+
+/* 深色模式下 Portfolio 區 */
+.theme-dark .page-portfolio {
+	--portfolio-bg: rgba(15, 23, 42, 0.92);
+	--portfolio-card-bg: #020617;
+	--portfolio-shadow: 0 22px 52px rgba(15, 23, 42, 0.98);
+	--portfolio-tag-bg: rgba(56, 189, 248, 0.9);
+	--portfolio-meta-color: #9ca3af;
+}
+/* 深色模式下 product 區 */
+.theme-dark .page-product {
+	/* Hero 深色版 */
+	--product-hero-bg: radial-gradient(circle at top, #0b1120 0, #020617 55%);
+	--product-hero-title-color: #f9fafb;
+	--product-hero-sub-color: #9ca3af;
+
+	/* ProductCarousel 深色卡片 */
+	--product-list-overlay-bg: rgba(15, 23, 42, 0.88);
+	--product-card-bg: #020617;
+	--product-card-title-color: #e5e7eb;
+	--product-card-text-color: #9ca3af;
+
+	/* Manual 深色版 */
+	--manual-bg: radial-gradient(circle at top, #020617 0, #020617 60%);
+	--manual-card-bg: rgba(15, 23, 42, 0.96);
+	--manual-icon-color: #38bdf8;
+
+	/* Hardware.vue：頂部介紹區（深色） */
+	--hardware-title-bg: #020617;
+	--hardware-title-card-bg: rgba(15, 23, 42, 0.9);
+	--hardware-title-card-text-color: #e5e7eb;
+	--hardware-title-card-divider: rgba(148, 163, 184, 0.5);
+	--hardware-title-img-border: rgba(148, 163, 184, 0.9);
+
+	/* Hardware.vue：Steps 深色版 */
+	--product-steps-text: #e5e7eb;
+	--product-steps-font-family: "Noto Sans TC", system-ui, -apple-system,
+		BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+	--product-steps-line-bg: rgba(56, 189, 248, 0.5);
+
+	--product-steps-node-size: 56px;
+	--product-steps-node-border: rgba(56, 189, 248, 0.9);
+	--product-steps-node-border-width: 4px;
+	--product-steps-node-bg: #020617;
+	--product-steps-node-color: #e0f2fe;
+	--product-steps-node-shadow-hover: rgba(56, 189, 248, 0.35);
+
+	--product-steps-node-active-bg: #38bdf8;
+	--product-steps-node-active-color: #020617;
+	--product-steps-node-active-border: #38bdf8;
+	--product-steps-node-active-shadow: rgba(56, 189, 248, 0.45);
+
+	--product-steps-panel-radius: 8px;
+	--product-steps-panel-bg: #0f172a;
+	--product-steps-panel-bg-alt: #020617;
+	--product-steps-panel-border: rgba(30, 64, 175, 0.6);
+	--product-steps-panel-title-color: #e5e7eb;
+	--product-steps-panel-text-color: #9ca3af;
+
+	--product-steps-node-size-sm: 44px;
+	--product-steps-node-border-width-sm: 3px;
+
+	/* Hardware.vue：伺服器主機區塊（深色） */
+	--hardware-goods-bg: #020617;
+	--hardware-goods-text: #e5e7eb;
+	--hardware-goods-section-title-color: #e5e7eb;
+	--hardware-box-bg: rgba(15, 23, 42, 0.9);
+	--hardware-box-bg-hover: rgba(15, 23, 42, 0.96);
+	--hardware-box-radius: 12px;
+	--hardware-subtitle-color: #e5e7eb;
+	--hardware-list-bullet-color: #38bdf8;
+	--hardware-list-text-color: #e5e7eb;
+
+	/* Hardware.vue：POS 卡片（深色） */
+	--hardware-display-card-bg: #020617;
+	--hardware-display-card-title-color: #e5e7eb;
+	--hardware-display-card-subtitle-color: #e5e7eb;
+	--hardware-display-card-card-bg: #020617;
+	--hardware-display-card-card-radius: 14px;
+	--hardware-display-card-card-shadow: 0 2px 14px rgba(0, 0, 0, 0.4);
+	--hardware-display-card-card-shadow-hover: 0 16px 40px rgba(0, 0, 0, 0.6);
+	--hardware-display-card-title-text-color: #e5e7eb;
+	--hardware-display-card-desc-color: #9ca3af;
+
+    /* Cloud 產品頁（深色版） */
+    --product-cloud-hero-bg: radial-gradient(circle at top, #0b1120 0, #020617 55%);
+    --product-cloud-hero-title-color: #e5e7eb;
+    --product-cloud-hero-sub-color: #9ca3af;
+
+    --product-cloud-card-main-bg: linear-gradient(135deg, #38bdf8, #0ea5e9);
+    --product-cloud-card-base-bg: #020617;
+    --product-cloud-card-title-color: #e5e7eb;
+    --product-cloud-card-subtitle-color: #dbeafe;
+
+    --product-cloud-image-shadow: 0 18px 40px rgba(15, 23, 42, 0.9);
+    --product-cloud-image-shadow-hover: 0 26px 55px rgba(15, 23, 42, 0.98);
+
+}
+
+.theme-dark .loading {
+	color: var(--color-text-main);
+}

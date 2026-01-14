@@ -1,0 +1,32 @@
+{
+  "hero": {
+    "imageAlt": "Website Hero Visual",
+    "titleImageAlt": "Web Design Title",
+    "p1": "We tailor solutions and budgets according to the unique needs of each client.",
+    "p2": "We design website structures and plans that maximize your brand value and business potential."
+  },
+  "serverIntro": {
+    "sectionTitle": "Website Solutions",
+    "planA": {
+      "title": "Economy Corporate Website",
+      "items": [
+        "Ideal for companies with a limited number of products or services.",
+        "Easy-to-use admin panel with editable text and images.",
+        "Modular features: Company Profile / News / Product List / Contact Us",
+        "Built-in SEO optimization management system"
+      ]
+    },
+    "planB": {
+      "title": "Custom Project Solution",
+      "items": [
+        "Development of e-commerce platforms tailored to client requirements.",
+        "Customized website style to strengthen corporate identity.",
+        "SEO optimization system for better organic search rankings.",
+        "Automatic integration with native mobile device features.",
+        "Easy-to-manage backend with editable content.",
+        "User-friendly admin interface for quick onboarding."
+      ]
+    },
+    "caseBtn": "Portfolio"
+  }
+}

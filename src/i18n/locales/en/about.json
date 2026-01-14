@@ -1,0 +1,23 @@
+{
+	"about_section1": {
+		"intro1": "Kudinzi Creative Information Technology Co., Ltd. was founded in 2009. Our shareholders and core team members each possess more than 30 years of experience in software design and market development. As a professional software company, we focus on software development and comprehensive IT consulting services.",
+		"intro2": "With extensive practical experience and strong professional expertise, we provide high-quality consulting services and a variety of professional training programs, helping enterprises and individuals enhance their knowledge, skills, and overall competitiveness.",
+		"intro3": "Driven by ideas, breakthroughs, and continuous motivation, we believe that success belongs to those who persevere and possess vision. It is with this belief that Kudinzi continues to move forward and innovate.",
+		"intro4": "Today, we proudly serve thousands of clients whose needs, feedback, and support inspire our ongoing growth. We firmly believe that every process and service must be built upon thoughtful planning and deep understanding, as “service” is our most valuable intangible asset and the foundation of our commitment to excellence."
+	},
+
+	"about_section2": {
+		"planner": {
+			"title": "Planners Trained with Practical and Innovative Experience",
+			"content": "We provide services tailored to different industries, and every consultant responsible for enterprise guidance must possess 5 to 10 years of hands-on experience in computerization and digital transformation."
+		},
+		"developer": {
+			"title": "Programmers Skilled in Practical Development and Innovation",
+			"content": "To ensure smooth and efficient digitalization for businesses, every programmer must have a solid understanding of real factory workflows. By combining practical field experience with creative thinking and integrating it into our development process, we design software solutions that precisely meet our clients’ needs."
+		},
+		"service": {
+			"title": "Professional and Well-Trained Customer Service Specialists",
+			"content": "Our online customer service team undergoes structured internal training every month to strengthen their technical knowledge and customer-support skills. We also host regular experience-sharing and case-discussion sessions to ensure they fully understand client issues and resolve them efficiently. Fast deployment and effective service are the core principles guiding our customer support."
+		}
+	}
+}

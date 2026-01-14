@@ -1,0 +1,20 @@
+{
+	"hero": {
+		"title": "Business Software Solutions — Simplifying Your Everyday Work",
+		"subLine1": "From ERP and cloud management to attendance systems and custom platforms,",
+		"subLine2": "one unified solution boosts efficiency and accelerates digital transformation.",
+		"ctaCourse": "Course Information",
+		"warranty": "Warranty Downloads"
+	},
+	"manual": {
+		"title": "Software User Manual Downloads",
+		"JBS-Warranty-title": "JBS Software Warranty Certificate Download",
+		"JBS-Warranty": "JBS Software Warranty Certificate"
+	},
+	"cloud_app": {
+		"hero": {
+			"title": "AI Integration & Cloud Services",
+			"subtitle": "Cloud services / Security layout / ESG framework / Strategic dashboards"
+		}
+	}
+}

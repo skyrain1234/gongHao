@@ -1,0 +1,126 @@
+:root {
+	/* =======================
+	 * 0. 通用設計 token（新加的）
+	 * ======================= */
+
+	/* 品牌主色 / 狀態色 */
+	--color-primary: #55779c;
+	--color-primary-dark: #435e7a;
+	--color-primary-light: #e0f4ff;
+
+	--color-success: #16a34a;
+	--color-warning: #f59e0b;
+	--color-danger: #dc2626;
+
+	/* 文字 & 背景 */
+	--color-text-main: #1f2933;
+	--color-text-muted: #6c757d;
+	--color-text-inverse: #ffffff;
+
+	--bg-page: #e0f4ff;
+	--bg-surface: #ffffff;
+
+	/* 圓角級距 */
+	--radius-xs: 4px;
+	--radius-sm: 6px;
+	--radius-md: 10px;
+	--radius-lg: 16px;
+	--radius-round: 999px;
+
+	/* 陰影級距 */
+	--shadow-soft: 0 4px 12px rgba(0, 0, 0, 0.2);
+	--shadow-elevated: 0 8px 24px rgba(0, 0, 0, 0.25);
+
+	/* 區塊上下 padding */
+	--section-padding-y: 48px;
+	--section-padding-y-lg: 64px;
+
+	/* 按鈕用色（對應到 color-primary 系列） */
+	--btn-primary-bg: #55779c;
+	--btn-primary-bg-hover: #435e7a;
+	--btn-primary-bg-strong: #0056b3;
+
+	/* fab 懸浮按鈕 */
+	--fab-size: 60px;
+	--fab-gap: 12px;
+	--fab-margin: 24px;
+
+	/* Footer 主題背景 */
+	/* --footer-bg: linear-gradient(90deg, #041d45, #113165, #041d45); */
+	--footer-bg: linear-gradient(180deg, #65768a, #7692bb);
+
+	/* Footer 文字 / Icon 顏色 */
+	--footer-text: #ffffff;
+	--footer-icon: #ffffff;
+
+	/* Footer 連結與底線 */
+	--footer-link: #ffffff;
+	--footer-link-underline: #999999;
+
+	/* Footer 其他點綴 */
+	--footer-hr-opacity: 0.15;
+
+	/* 各頁面的背景圖（有需要再改路徑就好） */
+	/* --bg-about-image: url("@/assets/images/about/about-bg.png"); */
+	--bg-image: url("@/assets/images/news/news-bg.jpg");
+
+	/* 有固定 navbar 的頁面，上方保留空間 */
+	--page-padding-top-with-navbar: 60px;
+
+	/* 首頁-服務項目 */
+	--svc-bg: #ffffff;
+	--svc-text: #1a1a1a;
+	--svc-muted: #6c757d;
+
+	--svc-ring: rgba(0, 162, 255, 0.18);
+	--svc-border: rgba(0, 0, 0, 0.08);
+	--svc-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+	--svc-hover-shadow: 0 10px 28px rgba(0, 0, 0, 0.1);
+	--svc-radius: 16px;
+
+	/* ============================
+	 * Tab 膠囊按鈕（共用變數）
+	 * ============================ */
+
+	/* 一般字級（桌機） */
+	--tab-pill-font-size: 0.95rem;
+
+	/* 手機版字級 */
+	--tab-pill-font-size-sm: 0.85rem;
+
+	/* 一般狀態底色（玻璃感） */
+	--tab-pill-bg: rgba(255, 255, 255, 0.6);
+
+	/* Active 狀態（主色） */
+	--tab-pill-active-bg: #8ec1e4;
+	--tab-pill-active-color: #ffffff;
+
+	/* navbar */
+	--navbar-bg-scroll: rgba(255, 255, 255, 0.7);
+	--navbar-blur: 14px;
+
+	--navbar-link-color: var(--color-text-main);
+	--navbar-link-active-color: var(--color-primary);
+
+	/* dropdown */
+	--navbar-dropdown-bg: #ffffff;
+	--navbar-dropdown-border: rgba(148, 163, 184, 0.3);
+	--navbar-dropdown-shadow: 0 12px 30px rgba(15, 23, 42, 0.16);
+
+	--navbar-dropdown-link-color: var(--color-text-main);
+	--navbar-dropdown-link-hover-color: var(--color-primary);
+	--navbar-dropdown-hover-bg: rgba(148, 163, 184, 0.12);
+
+	/* Home 頁面背景（漸層） */
+	--home-hero-bg: linear-gradient(180deg, #e0f4ff, #ffffff);
+	--home-section-bg: linear-gradient(180deg, #ffffff, #e0f4ff);
+	--home-news-bg: linear-gradient(180deg, #e0f4ff, #083240);
+}
+
+/* 深色頁面時，覆蓋 footer 相關顏色（保留） */
+.dark-page {
+	--footer-text: #e6e6e6;
+	--footer-icon: #bfbfbf;
+	--footer-link: #d8d8d8;
+	--footer-link-underline: #bbbbbb;
+}

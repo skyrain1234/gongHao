@@ -1,0 +1,398 @@
+:root {
+	--nav-green: #22c55e;
+	--nav-accent: #f97316;
+	--nav-text: #0f172a;
+	--nav-muted: rgba(15, 23, 42, 0.62);
+	--panel-bg: #e5e7eb;
+	--shadow: 0 22px 55px rgba(15, 23, 42, 0.12);
+	--radius: 18px;
+	--maxw: 1320px;
+}
+
+#navbar {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: 1050;
+	background: rgba(255, 255, 255, 0.92);
+	backdrop-filter: blur(10px);
+	border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+#navbar .nav-wrap {
+	max-width: var(--maxw);
+	margin: 0 auto;
+	padding: 0 12px;
+}
+
+#navbar .nav-inner {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 16px;
+	min-height: 82px;
+}
+
+/* Brand */
+#navbar .brand {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	text-decoration: none;
+	color: var(--nav-text);
+	flex: 0 0 auto;
+	min-width: 280px;
+}
+#navbar .brand img {
+	width: 46px;
+	height: 46px;
+	object-fit: contain;
+}
+#navbar .brand .brand-txt {
+	line-height: 1.15;
+	font-weight: 900;
+	font-size: 14px;
+	letter-spacing: 0.3px;
+	white-space: nowrap;
+}
+#navbar .brand .brand-txt small {
+	display: block;
+	margin-top: 3px;
+	font-weight: 800;
+	font-size: 12px;
+	color: var(--nav-muted);
+	white-space: nowrap;
+}
+
+/* Desktop main nav */
+#navbar .main-nav {
+	display: flex;
+	align-items: center;
+	gap: 34px;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+#navbar .main-nav > li {
+	position: relative;
+}
+
+/* Normal link (Home) */
+#navbar .main-nav a.nav-linkx {
+	position: relative;
+	text-decoration: none;
+	color: var(--nav-text);
+	font-weight: 900;
+	letter-spacing: 0.2px;
+	display: inline-flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	line-height: 1.05;
+	padding: 10px 2px 16px;
+	white-space: nowrap;
+}
+#navbar .main-nav a.nav-linkx .zh {
+	font-size: 14px;
+}
+#navbar .main-nav a.nav-linkx .en {
+	margin-top: 7px;
+	font-size: 12px;
+	font-weight: 900;
+	color: var(--nav-accent);
+	letter-spacing: 0.35px;
+}
+
+/* Mega trigger button (looks like link) */
+#navbar .mega-trigger {
+	all: unset;
+	cursor: pointer;
+	position: relative;
+	text-decoration: none;
+	color: var(--nav-text);
+	font-weight: 900;
+	letter-spacing: 0.2px;
+	display: inline-flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	line-height: 1.05;
+	padding: 10px 2px 16px;
+	white-space: nowrap;
+	-webkit-tap-highlight-color: transparent;
+}
+#navbar .mega-trigger .zh {
+	font-size: 14px;
+}
+#navbar .mega-trigger .en {
+	margin-top: 7px;
+	font-size: 12px;
+	font-weight: 900;
+	color: var(--nav-accent);
+	letter-spacing: 0.35px;
+}
+
+/* Hover green underline (hover + active) */
+#navbar .main-nav a.nav-linkx::after,
+#navbar .mega-trigger::after {
+	content: "";
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 7px;
+	height: 3px;
+	background: var(--nav-green);
+	border-radius: 999px;
+	transform: scaleX(0);
+	transform-origin: center;
+	transition: transform 0.18s ease;
+}
+#navbar .main-nav li:hover > a.nav-linkx::after,
+#navbar .main-nav a.nav-linkx.is-active::after,
+#navbar .main-nav li:hover > .mega-trigger::after,
+#navbar .mega-trigger.is-active::after {
+	transform: scaleX(1);
+}
+
+/* Actions */
+#navbar .nav-actions {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	flex: 0 0 auto;
+}
+#navbar .btn-icon {
+	width: 44px;
+	height: 44px;
+	border-radius: 12px;
+	border: 1px solid rgba(0, 0, 0, 0.1);
+	background: #fff;
+	display: grid;
+	place-items: center;
+	color: var(--nav-text);
+}
+#navbar .btn-icon:hover {
+	background: rgba(34, 197, 94, 0.06);
+	border-color: rgba(34, 197, 94, 0.25);
+}
+
+/* =========================
+      MEGA (Full width 100vw)
+    ========================== */
+
+#navbar .mega-overlay {
+	position: fixed;
+	inset: 0;
+	background: rgba(15, 23, 42, 0.18);
+	backdrop-filter: blur(2px);
+	opacity: 0;
+	pointer-events: none;
+	transition: opacity 0.18s ease;
+	z-index: 1040;
+}
+
+#navbar.mega-open .mega-overlay {
+	opacity: 1;
+	pointer-events: auto; /* only open can click */
+}
+
+#navbar .mega-panel {
+	position: fixed;
+	left: 0;
+	width: 100vw; /* MUST full width */
+	top: var(--nav-h, 82px);
+	background: radial-gradient(
+			900px 240px at 20% 0%,
+			rgba(34, 197, 94, 0.12),
+			transparent 55%
+		),
+		radial-gradient(
+			900px 240px at 80% 0%,
+			rgba(249, 115, 22, 0.1),
+			transparent 55%
+		),
+		var(--panel-bg);
+	border-top: 1px solid rgba(0, 0, 0, 0.08);
+	box-shadow: var(--shadow);
+	display: none;
+	z-index: 1045;
+	margin-top: -1px; /* remove 1px gap */
+	
+	/* ✅ 關鍵：面板高度上限 = 視窗高度 - navbar 高度 */
+	max-height: calc(100vh - var(--nav-h, 82px));
+	overflow-y: auto;
+	-webkit-overflow-scrolling: touch;
+
+	/* 你原本是 hidden，會裁切，改掉 */
+	overflow-x: hidden;
+
+	/* 可選：避免捲動時背景整頁也跟著滾（部分瀏覽器更穩） */
+	overscroll-behavior: contain;
+}
+
+#navbar.mega-open .mega-panel {
+	display: block;
+}
+
+#navbar .mega-inner {
+	max-width: var(--maxw);
+	margin: 0 auto;
+	padding: 22px 12px 26px;
+}
+
+#navbar .mega-card {
+	background: rgba(255, 255, 255, 0.74);
+	border: 1px solid rgba(255, 255, 255, 0.55);
+	border-radius: var(--radius);
+	padding: 18px;
+	box-shadow: 0 14px 35px rgba(15, 23, 42, 0.08);
+}
+
+/* aligned rows */
+#navbar .mega-row {
+	display: grid;
+	grid-template-columns: 180px 1fr;
+	gap: 18px;
+	padding: 14px 0;
+	align-items: start;
+}
+#navbar .mega-row + .mega-row {
+	border-top: 1px dashed rgba(15, 23, 42, 0.14);
+}
+
+#navbar .mega-title {
+	font-weight: 950;
+	color: var(--nav-accent);
+	font-size: 18px;
+	letter-spacing: 0.6px;
+	line-height: 1.2;
+	padding-top: 2px;
+	white-space: nowrap;
+}
+
+#navbar .mega-links {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px 14px;
+}
+
+#navbar .mega-links a {
+	text-decoration: none;
+	color: var(--nav-text);
+	font-weight: 900;
+	font-size: 13.5px;
+	letter-spacing: 0.2px;
+	padding: 8px 12px;
+	border-radius: 999px;
+	background: rgba(255, 255, 255, 0.75);
+	border: 1px solid rgba(15, 23, 42, 0.08);
+	transition: transform 0.12s ease, background 0.12s ease,
+		border-color 0.12s ease;
+	white-space: nowrap;
+}
+#navbar .mega-links a:hover {
+	background: rgba(34, 197, 94, 0.1);
+	border-color: rgba(34, 197, 94, 0.35);
+	transform: translateY(-1px);
+}
+
+/* =========================
+      MOBILE (Offcanvas + Accordion)
+    ========================== */
+
+#navbar .offcanvas {
+	border-left: 1px solid rgba(0, 0, 0, 0.08);
+}
+#navbar .offcanvas-header {
+	padding: 16px 16px 10px;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+	background: #fff;
+}
+#navbar .offcanvas-title {
+	font-weight: 950;
+	color: var(--nav-text);
+	letter-spacing: 0.3px;
+	font-size: 16px;
+}
+#navbar .offcanvas-body {
+	background: linear-gradient(180deg, rgba(34, 197, 94, 0.06), transparent 45%),
+		#fff;
+}
+
+#navbar .m-home {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	text-decoration: none;
+	padding: 12px 12px;
+	border: 1px solid rgba(15, 23, 42, 0.1);
+	border-radius: 14px;
+	font-weight: 950;
+	color: var(--nav-text);
+	background: rgba(255, 255, 255, 0.9);
+	margin-bottom: 12px;
+}
+
+#navbar .accordion-item {
+	border: 1px solid rgba(15, 23, 42, 0.1);
+	border-radius: 14px;
+	overflow: hidden;
+	margin-bottom: 10px;
+	background: rgba(255, 255, 255, 0.92);
+}
+#navbar .accordion-button {
+	font-weight: 950;
+	color: var(--nav-text);
+	letter-spacing: 0.2px;
+}
+#navbar .accordion-button:not(.collapsed) {
+	background: rgba(34, 197, 94, 0.1);
+	color: var(--nav-text);
+	box-shadow: none;
+}
+#navbar .accordion-button:focus {
+	box-shadow: none;
+}
+
+#navbar .m-item {
+	display: block;
+	text-decoration: none;
+	color: var(--nav-text);
+	font-weight: 850;
+	padding: 10px 8px;
+	border-bottom: 1px dashed rgba(15, 23, 42, 0.14);
+}
+#navbar .m-item:last-child {
+	border-bottom: 0;
+}
+#navbar .m-item:hover {
+	color: #0b5ed7;
+}
+
+/* Responsive: hide desktop nav on mobile */
+@media (max-width: 991.98px) {
+	#navbar .brand {
+		min-width: auto;
+	}
+	#navbar .main-nav {
+		display: none;
+	}
+	#navbar .nav-inner {
+		min-height: 70px;
+	}
+}
+/* ✅ 修正：避免 offcanvas 被 navbar 高度誤傷 */
+#mobileNav.offcanvas,
+#navbar .offcanvas#mobileNav {
+	height: 100vh !important;
+	top: 0 !important;
+	bottom: 0 !important;
+}
+
+/* ✅ 讓內容區撐滿並可滾動 */
+#mobileNav .offcanvas-body {
+	flex: 1 1 auto;
+	overflow-y: auto;
+	min-height: 0;
+}

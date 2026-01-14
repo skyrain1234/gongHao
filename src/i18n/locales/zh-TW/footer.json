@@ -1,0 +1,47 @@
+{
+	"contact": {
+		"headOffice": "總公司",
+		"questionLine": "如有任何問題歡迎洽問"
+	},
+	"groups": {
+		"about": {
+			"title": "關於我們",
+			"items": ["公司簡介", "榮獲記錄", "聯絡我們", "最新消息"]
+		},
+		"services": {
+			"title": "服務項目",
+			"items": [
+				"雲端服務平台",
+				"ERP商業軟體",
+				"網頁設計",
+				"政府計畫專案",
+				"商用主機規劃",
+				"課程資訊"
+			]
+		},
+		"faq": {
+			"title": "Q&A",
+			"items": ["常見問題"]
+		},
+		"download": {
+			"title": "檔案下載",
+			"items": [
+				"保證書下載",
+				"JBS軟體說明書"
+			]
+		},
+		"link": {
+			"title": "快速連結",
+			"items": [
+				"最新消息",
+				"知識分享",
+				"作品案例"
+			]
+		}
+	},
+	"bottom": {
+		"keywords": "雲端服務、資安布局、ESG建構、戰情規劃、AI導入、ERP服務、網頁、app設計",
+		"copyright": "版權所有 © {year} 庫點子文創資訊產業有限公司 All Rights Reserved Design by",
+		"design-by" : "華越資通"
+	}
+}

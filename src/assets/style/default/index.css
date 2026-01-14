@@ -1,0 +1,73 @@
+.carousel-inner img {
+	max-height: 800px;
+	width: 100%;
+	object-fit: cover;
+}
+
+/*--------BG----------------*/
+/* ===== 共用背景（連續、不會斷） ===== */
+#foundationBg {
+	position: relative;
+	overflow: hidden;
+	isolation: isolate;
+}
+
+/* 同你 eventsBoard 的 bg 配方：畫在整個 wrapper 上 */
+#foundationBg::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	z-index: 0;
+	pointer-events: none;
+
+	background: radial-gradient(
+			900px 420px at 18% 18%,
+			rgba(255, 220, 195, 0.55),
+			transparent 60%
+		),
+		radial-gradient(
+			820px 420px at 84% 20%,
+			rgba(205, 232, 221, 0.6),
+			transparent 60%
+		),
+		radial-gradient(
+			900px 520px at 55% 105%,
+			rgba(170, 200, 255, 0.18),
+			transparent 60%
+		),
+		linear-gradient(180deg, #fbf7f2 0%, #f6faf8 55%, #f2f6f4 100%);
+}
+
+/* grain 同 eventsBoard */
+#foundationBg::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	z-index: 1;
+	pointer-events: none;
+
+	opacity: 0.1;
+	background-image: radial-gradient(
+		rgba(0, 0, 0, 0.22) 0.6px,
+		transparent 0.6px
+	);
+	background-size: 12px 12px;
+	mix-blend-mode: soft-light;
+}
+
+
+/* ===== 最新消息｜資料夾毛玻璃區塊 ===== */
+:root {
+	--nav-green: #22c55e;
+	--nav-accent: #f97316;
+	--nav-text: #0f172a;
+	--nav-muted: rgba(15, 23, 42, 0.62);
+
+	--folder-bg: rgba(229, 231, 235, 0.62); /* 灰色襯色（半透明） */
+	--glass: blur(16px) saturate(125%);
+	--radius-xl: 26px;
+	--radius-lg: 18px;
+	--shadow-soft: 0 22px 55px rgba(15, 23, 42, 0.12);
+	--shadow-card: 0 18px 45px rgba(15, 23, 42, 0.14);
+	--maxw: 1320px;
+}

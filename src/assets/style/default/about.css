@@ -1,0 +1,792 @@
+#assocAboutWrap.fwAbout {
+	--ink: #1f2328;
+	--muted: rgba(31, 35, 40, 0.68);
+	--line: rgba(31, 35, 40, 0.12);
+
+	--paper: #fbf7ef; /* 米白紙 */
+	--paper2: #fffdf7; /* 更亮的紙 */
+	--tint: #f3f6ef; /* 淡綠灰 */
+	--accent: #2f5d50; /* 溫和深綠 */
+	--accent2: #c76a52; /* 溫暖橘紅 */
+	--shadow: 0 14px 38px rgba(31, 35, 40, 0.1);
+	--r: 18px;
+
+	position: relative;
+	padding: clamp(28px, 4vw, 56px) 0;
+	color: var(--ink);
+	isolation: isolate;
+}
+
+#assocAboutWrap .fwInner {
+	width: min(1120px, calc(100% - 32px));
+	margin: 0 auto;
+}
+
+/* Background: paper + watercolor */
+#assocAboutWrap .fwBg {
+	position: absolute;
+	inset: 0;
+	z-index: -1;
+	overflow: hidden;
+}
+#assocAboutWrap .fwBg .paper {
+	position: absolute;
+	inset: 0;
+	background: radial-gradient(
+			900px 500px at 20% 0%,
+			rgba(200, 230, 255, 0.45),
+			transparent 60%
+		),
+		radial-gradient(
+			800px 520px at 85% 20%,
+			rgba(255, 220, 210, 0.45),
+			transparent 62%
+		),
+		radial-gradient(
+			900px 600px at 50% 95%,
+			rgba(210, 245, 224, 0.45),
+			transparent 65%
+		),
+		linear-gradient(180deg, var(--paper2), var(--paper));
+}
+
+/* 紙紋（不會太吵） */
+#assocAboutWrap .fwBg .paper::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	background: repeating-linear-gradient(
+			0deg,
+			rgba(0, 0, 0, 0.018) 0 1px,
+			transparent 1px 6px
+		),
+		repeating-linear-gradient(
+			90deg,
+			rgba(0, 0, 0, 0.012) 0 1px,
+			transparent 1px 7px
+		);
+	opacity: 0.18;
+	pointer-events: none;
+}
+
+#assocAboutWrap .wash {
+	position: absolute;
+	width: 520px;
+	height: 520px;
+	border-radius: 45% 55% 60% 40% / 55% 40% 60% 45%;
+	filter: blur(22px);
+	opacity: 0.55;
+	animation: washFloat 14s ease-in-out infinite;
+}
+#assocAboutWrap .w1 {
+	left: -180px;
+	top: -220px;
+	background: rgba(190, 225, 255, 0.9);
+}
+#assocAboutWrap .w2 {
+	right: -220px;
+	top: 120px;
+	background: rgba(255, 210, 205, 0.9);
+	animation-delay: -5s;
+}
+#assocAboutWrap .w3 {
+	left: 18%;
+	bottom: -280px;
+	background: rgba(195, 245, 210, 0.9);
+	animation-delay: -9s;
+}
+
+@keyframes washFloat {
+	0%,
+	100% {
+		transform: translate3d(0, 0, 0) rotate(0deg);
+	}
+	50% {
+		transform: translate3d(0, -18px, 0) rotate(6deg);
+	}
+}
+
+/* Header */
+#assocAboutWrap .fwHead {
+	margin-bottom: 18px;
+}
+#assocAboutWrap .fwBadge {
+	display: inline-block;
+	padding: 8px 12px;
+	border-radius: 999px;
+	border: 1px solid rgba(47, 93, 80, 0.2);
+	background: rgba(255, 255, 255, 0.65);
+	color: rgba(47, 93, 80, 0.95);
+	font-weight: 800;
+	letter-spacing: 0.1em;
+	font-size: 12px;
+}
+#assocAboutWrap .fwTitle {
+	margin: 12px 0 6px;
+	font-weight: 950;
+	letter-spacing: 0.02em;
+	font-size: clamp(28px, 3.2vw, 40px);
+	line-height: 1.15;
+}
+#assocAboutWrap .fwSub {
+	margin: 0;
+	color: var(--muted);
+	line-height: 1.9;
+	font-weight: 650;
+	max-width: 66ch;
+}
+
+/* Nav: warm tabs */
+#assocAboutWrap .fwNav {
+	display: flex;
+	gap: 10px;
+	flex-wrap: wrap;
+	margin: 18px 0 clamp(22px, 3.2vw, 36px);
+}
+#assocAboutWrap .fwNav__link {
+	position: relative;
+	padding: 10px 12px;
+	border-radius: 12px;
+	text-decoration: none;
+	color: rgba(31, 35, 40, 0.82);
+	background: rgba(255, 255, 255, 0.55);
+	border: 1px solid rgba(31, 35, 40, 0.1);
+	font-weight: 800;
+	font-size: 14px;
+	transition: background 0.15s ease, transform 0.15s ease;
+}
+#assocAboutWrap .fwNav__link:hover {
+	background: rgba(255, 255, 255, 0.8);
+	transform: translateY(-1px);
+}
+#assocAboutWrap .fwNav__link.is-active {
+	background: rgba(255, 255, 255, 0.92);
+	border-color: rgba(47, 93, 80, 0.28);
+	color: rgba(47, 93, 80, 0.98);
+}
+#assocAboutWrap .fwNav__link.is-active::after {
+	content: "";
+	position: absolute;
+	left: 12px;
+	right: 12px;
+	bottom: 6px;
+	height: 3px;
+	border-radius: 999px;
+	background: rgba(47, 93, 80, 0.85);
+	opacity: 0.45;
+}
+
+/* Section spacing: not cramped */
+#assocAboutWrap .fwSec {
+	scroll-margin-top: 160px; /* 你 navbar 固定高度不確定，先放保守值 */
+	padding: clamp(28px, 3.8vw, 54px) 0;
+	position: relative;
+}
+#assocAboutWrap .fwSec::before {
+	content: "";
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	height: 1px;
+	background: linear-gradient(
+		90deg,
+		transparent,
+		rgba(31, 35, 40, 0.14),
+		transparent
+	);
+}
+#assocAboutWrap .fwSecLast::after {
+	display: none;
+}
+
+#assocAboutWrap .fwSecHead {
+	margin-bottom: 16px;
+}
+#assocAboutWrap .fwKicker {
+	display: inline-block;
+	font-weight: 950;
+	letter-spacing: 0.18em;
+	color: rgba(31, 35, 40, 0.55);
+	font-size: 12px;
+	text-transform: uppercase;
+}
+#assocAboutWrap .fwH2 {
+	margin: 10px 0 6px;
+	font-weight: 950;
+	font-size: clamp(22px, 2.4vw, 32px);
+	line-height: 1.2;
+	position: relative;
+}
+/* 手繪感底線 */
+#assocAboutWrap .fwH2::after {
+	content: "";
+	display: block;
+	width: 120px;
+	height: 10px;
+	margin-top: 8px;
+	background: rgba(199, 106, 82, 0.22);
+	border-radius: 999px;
+	transform: rotate(-1.5deg);
+}
+#assocAboutWrap .fwDesc {
+	margin: 10px 0 0;
+	color: var(--muted);
+	line-height: 1.9;
+	font-weight: 650;
+	max-width: 76ch;
+}
+
+/* Grid */
+#assocAboutWrap .fwGrid {
+	display: grid;
+	gap: 18px;
+}
+#assocAboutWrap .fwGrid.two {
+	grid-template-columns: 1.12fr 0.88fr;
+}
+#assocAboutWrap .fwGrid.three {
+	grid-template-columns: repeat(3, 1fr);
+}
+@media (max-width: 992px) {
+	#assocAboutWrap .fwGrid.two {
+		grid-template-columns: 1fr;
+	}
+	#assocAboutWrap .fwGrid.three {
+		grid-template-columns: 1fr;
+	}
+}
+
+/* Card: paper feeling */
+#assocAboutWrap .fwCard {
+	background: rgba(255, 255, 255, 0.7);
+	border: 1px solid rgba(31, 35, 40, 0.12);
+	border-radius: var(--r);
+	box-shadow: var(--shadow);
+	padding: clamp(18px, 2.2vw, 28px);
+	position: relative;
+	overflow: hidden;
+}
+#assocAboutWrap .fwCard::before {
+	/* 小小貼紙角（更公益、更有人味） */
+	content: "";
+	position: absolute;
+	right: -26px;
+	top: -26px;
+	width: 88px;
+	height: 88px;
+	background: rgba(47, 93, 80, 0.12);
+	transform: rotate(12deg);
+	border-radius: 16px;
+}
+#assocAboutWrap .fwCard--tint {
+	background: linear-gradient(
+		180deg,
+		rgba(255, 255, 255, 0.78),
+		rgba(243, 246, 239, 0.92)
+	);
+}
+
+#assocAboutWrap .fwCard__label {
+	font-weight: 950;
+	color: rgba(47, 93, 80, 0.95);
+	letter-spacing: 0.06em;
+	margin-bottom: 10px;
+	font-size: 20px;
+}
+#assocAboutWrap .fwP {
+	margin: 0;
+	line-height: 2;
+	color: rgba(31, 35, 40, 0.8);
+	font-weight: 650;
+	font-size: 17px;
+}
+
+/* chips */
+#assocAboutWrap .fwChips {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+	margin-top: 16px;
+}
+#assocAboutWrap .fwChips span {
+	background: rgba(255, 255, 255, 0.75);
+	border: 1px solid rgba(31, 35, 40, 0.1);
+	border-radius: 999px;
+	padding: 8px 12px;
+	font-weight: 850;
+	font-size: 14px;
+	color: rgba(31, 35, 40, 0.72);
+}
+
+/* list */
+#assocAboutWrap .fwList {
+	margin: 0;
+	padding-left: 18px;
+	line-height: 2.05;
+	color: rgba(31, 35, 40, 0.8);
+	font-weight: 650;
+}
+#assocAboutWrap .fwList b {
+	font-weight: 950;
+}
+
+/* timeline */
+#assocAboutWrap .fwTimeline {
+	display: grid;
+	gap: 18px;
+}
+#assocAboutWrap .fwT {
+	position: relative;
+	padding-left: 20px;
+}
+#assocAboutWrap .fwT__line {
+	position: absolute;
+	left: 6px;
+	top: 0;
+	bottom: 0;
+	width: 2px;
+	background: rgba(47, 93, 80, 0.18);
+	border-radius: 999px;
+}
+#assocAboutWrap .fwT__card {
+	position: relative;
+}
+#assocAboutWrap .fwT__card::after {
+	content: "";
+	position: absolute;
+	left: -30px;
+	top: 26px;
+	width: 14px;
+	height: 14px;
+	border-radius: 999px;
+	background: rgba(199, 106, 82, 0.7);
+	box-shadow: 0 0 0 6px rgba(255, 255, 255, 0.8);
+}
+#assocAboutWrap .fwMeta {
+	font-weight: 950;
+	letter-spacing: 0.12em;
+	font-size: 12px;
+	color: rgba(31, 35, 40, 0.56);
+}
+#assocAboutWrap .fwTtl {
+	margin-top: 8px;
+	font-weight: 950;
+	font-size: 16px;
+}
+#assocAboutWrap .fwSmall {
+	margin: 10px 0 0;
+	line-height: 1.95;
+	color: rgba(31, 35, 40, 0.76);
+	font-weight: 650;
+	font-size: 14px;
+}
+
+/* quote */
+#assocAboutWrap .fwQuote__text {
+	margin: 4px 0 0;
+	line-height: 2.05;
+	font-weight: 750;
+	font-size: 17px;
+	color: rgba(31, 35, 40, 0.84);
+	padding-left: 14px;
+	border-left: 4px solid rgba(199, 106, 82, 0.35);
+}
+#assocAboutWrap .fwSign {
+	margin-top: 16px;
+	text-align: right;
+}
+#assocAboutWrap .fwName {
+	font-weight: 950;
+	font-size: 20px;
+}
+#assocAboutWrap .fwRole {
+	margin-top: 2px;
+	color: var(--muted);
+	font-weight: 650;
+	font-size: 16px;
+}
+
+/* photo */
+/* Only for Chair card photo box (inside fwCard fwPhoto) */
+#assocAboutWrap .fwCard.fwPhoto .fwPhoto__box {
+	padding: 12px;
+	border-radius: var(--r);
+	border: 1px solid var(--line);
+	background: rgba(255, 255, 255, 0.55);
+	box-shadow: 0 12px 26px rgba(31, 35, 40, 0.06);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 360px; 
+	margin: 0 auto; /* ✅ 置中 */
+}
+
+/* 桌機：639x638 幾乎正方形 → 不裁切，保留相框留白 */
+#assocAboutWrap .fwCard.fwPhoto .fwPhoto__box img {
+	height: 260px;
+	max-width: 100%;
+	object-fit: contain;
+	display: block;
+
+	/* 讓照片本身也有一點點框感（可拿掉） */
+	border-radius: 12px;
+}
+
+/* 手機：不要外框、不要底色，只留圓形照片 */
+@media (max-width: 576px) {
+	#assocAboutWrap .fwCard.fwPhoto .fwPhoto__box {
+		border: none;
+		background: transparent;
+		box-shadow: none;
+		padding: 0;
+		min-height: auto; /* ✅ 不要多餘高度 */
+		justify-content: center;
+	}
+
+	#assocAboutWrap .fwCard.fwPhoto .fwPhoto__box img {
+		width: 220px;
+		height: 220px;
+		object-fit: cover;
+		border-radius: 999px;
+		padding: 0; /* ✅ 避免桌機的 padding 殘留 */
+		display: block;
+	}
+}
+
+#assocAboutWrap .fwHint {
+	margin-top: 12px;
+	color: var(--muted);
+	line-height: 1.75;
+	font-weight: 650;
+	font-size: 16px;
+}
+
+/* mini cards */
+#assocAboutWrap .fwWho {
+	font-weight: 950;
+	font-size: 20px;
+}
+#assocAboutWrap .fwJob {
+	margin-top: 6px;
+	color: var(--muted);
+	font-weight: 700;
+	font-size: 16px;
+}
+
+/* person */
+#assocAboutWrap .fwAvatar {
+	border-radius: 16px;
+	border: 1px dashed rgba(31, 35, 40, 0.2);
+	background: rgba(255, 255, 255, 0.62);
+	min-height: 130px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-weight: 900;
+	color: rgba(31, 35, 40, 0.48);
+	margin-bottom: 10px;
+}
+#assocAboutWrap .fwTags {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+	margin-top: 14px;
+}
+#assocAboutWrap .fwTags span {
+	background: rgba(255, 255, 255, 0.74);
+	border: 1px solid rgba(31, 35, 40, 0.1);
+	border-radius: 999px;
+	padding: 8px 12px;
+	font-weight: 850;
+	font-size: 12px;
+	color: rgba(31, 35, 40, 0.72);
+}
+
+/* pdf */
+#assocAboutWrap .fwPdfRow {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	flex-wrap: wrap;
+}
+#assocAboutWrap .fwBtn {
+	display: inline-flex;
+	padding: 12px 16px;
+	border-radius: 12px;
+	background: rgba(47, 93, 80, 0.92);
+	color: #fff;
+	text-decoration: none;
+	font-weight: 950;
+	border: 1px solid rgba(47, 93, 80, 0.92);
+	box-shadow: 0 14px 28px rgba(47, 93, 80, 0.2);
+	transition: transform 0.15s ease;
+}
+#assocAboutWrap .fwBtn:hover {
+	transform: translateY(-1px);
+}
+#assocAboutWrap .fwNote {
+	color: var(--muted);
+	font-weight: 650;
+	font-size: 13px;
+}
+
+#assocAboutWrap .fwPdfFrame {
+	margin-top: 16px;
+	border-radius: 16px;
+	overflow: hidden;
+	border: 1px solid rgba(31, 35, 40, 0.12);
+	background: rgba(255, 255, 255, 0.65);
+	aspect-ratio: 16/9;
+}
+#assocAboutWrap .fwPdfFrame iframe {
+	width: 100%;
+	height: 100%;
+	border: 0;
+	display: block;
+}
+
+@media (max-width: 576px) {
+	#assocAboutWrap .fwNav {
+		overflow: auto;
+		flex-wrap: nowrap;
+		padding-bottom: 8px;
+	}
+	#assocAboutWrap .fwNav__link {
+		white-space: nowrap;
+	}
+	#assocAboutWrap .fwSec {
+		scroll-margin-top: 190px;
+	}
+}
+/* =========================
+   BIG LOGO HERO (scoped)
+   ========================= */
+#assocAboutWrap .fwHeroLogo {
+	margin: 0 0 clamp(18px, 2.8vw, 28px);
+}
+
+#assocAboutWrap .fwHeroLogo__inner {
+	display: flex;
+	align-items: center;
+	gap: clamp(16px, 2.2vw, 26px);
+	padding: clamp(18px, 2.6vw, 30px);
+	border-radius: 22px;
+	border: 1px solid rgba(31, 35, 40, 0.12);
+	background: rgba(255, 255, 255, 0.72);
+	box-shadow: 0 16px 44px rgba(31, 35, 40, 0.1);
+	position: relative;
+	overflow: hidden;
+}
+
+/* 溫柔裝飾：水彩光暈 */
+#assocAboutWrap .fwHeroLogo__inner::before {
+	content: "";
+	position: absolute;
+	inset: -60px;
+	background: radial-gradient(
+			280px 220px at 14% 30%,
+			rgba(190, 225, 255, 0.55),
+			transparent 62%
+		),
+		radial-gradient(
+			260px 220px at 88% 20%,
+			rgba(255, 210, 205, 0.55),
+			transparent 62%
+		),
+		radial-gradient(
+			300px 240px at 55% 95%,
+			rgba(195, 245, 210, 0.48),
+			transparent 62%
+		);
+	pointer-events: none;
+}
+
+/* 紙感點點紋（很淡） */
+#assocAboutWrap .fwHeroLogo__inner::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	background: radial-gradient(rgba(0, 0, 0, 0.05) 1px, transparent 1px);
+	background-size: 18px 18px;
+	opacity: 0.06;
+	pointer-events: none;
+}
+
+#assocAboutWrap .fwHeroLogo__logo {
+	width: clamp(120px, 14vw, 168px);
+	height: clamp(120px, 14vw, 168px);
+	border-radius: 26px;
+	border: 1px solid rgba(31, 35, 40, 0.12);
+	background: rgba(255, 255, 255, 0.82);
+	box-shadow: 0 14px 34px rgba(31, 35, 40, 0.1);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex: 0 0 auto;
+	position: relative;
+	z-index: 1;
+}
+
+#assocAboutWrap .fwHeroLogo__logo img {
+	width: 86%;
+	height: 86%;
+	object-fit: contain;
+	display: block;
+}
+
+#assocAboutWrap .fwHeroLogo__content {
+	position: relative;
+	z-index: 1;
+	max-width: 68ch;
+}
+
+#assocAboutWrap .fwHeroLogo__badge {
+	display: inline-flex;
+	padding: 8px 12px;
+	border-radius: 999px;
+	border: 1px solid rgba(47, 93, 80, 0.2);
+	background: rgba(255, 255, 255, 0.6);
+	color: rgba(47, 93, 80, 0.95);
+	font-weight: 900;
+	letter-spacing: 0.1em;
+	font-size: 12px;
+}
+
+#assocAboutWrap .fwHeroLogo__name {
+	margin: 12px 0 6px;
+	font-weight: 950;
+	letter-spacing: 0.02em;
+	font-size: clamp(18px, 2.2vw, 26px);
+	line-height: 1.25;
+}
+
+#assocAboutWrap .fwHeroLogo__tagline {
+	margin: 0;
+	color: rgba(31, 35, 40, 0.68);
+	font-weight: 650;
+	line-height: 1.9;
+	font-size: 14px;
+}
+
+/* RWD：手機版改成直向置中 */
+@media (max-width: 768px) {
+	#assocAboutWrap .fwHeroLogo__inner {
+		flex-direction: column;
+		align-items: flex-start;
+	}
+	#assocAboutWrap .fwHeroLogo__logo {
+		width: 140px;
+		height: 140px;
+	}
+}
+
+@media (max-width: 576px) {
+	#assocAboutWrap .fwHeroLogo__inner {
+		align-items: center;
+		text-align: center;
+	}
+	#assocAboutWrap .fwHeroLogo__content {
+		max-width: 100%;
+	}
+}
+
+/* modal用 */
+/* More 放右下角 */
+#assocAboutWrap .fwMore {
+	margin-top: 10px;
+	display: flex;
+	justify-content: flex-end;
+}
+
+#assocAboutWrap .fwMore__btn {
+	appearance: none;
+	border: 1px solid rgba(31, 35, 40, 0.12);
+	background: rgba(255, 255, 255, 0.65);
+	color: rgba(47, 93, 80, 0.95);
+	padding: 8px 12px;
+	border-radius: 999px;
+	font-weight: 950;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	font-size: 12px;
+	cursor: pointer;
+	transition: transform 0.15s ease, background 0.15s ease;
+}
+
+#assocAboutWrap .fwMore__btn:hover {
+	background: rgba(255, 255, 255, 0.85);
+	transform: translateY(-1px);
+}
+
+#assocAboutWrap .fwMore__arrow {
+	margin-left: 6px;
+	opacity: 0.75;
+}
+
+/* ===== modal：沿用 fwCard 紙感與陰影 ===== */
+#assocAboutWrap .fwModal {
+	width: min(1050px, calc(100% - 28px));
+	border: 0;
+	padding: 0;
+	border-radius: 18px;
+	overflow: hidden;
+	box-shadow: 0 18px 60px rgba(31, 35, 40, 0.25);
+}
+
+#assocAboutWrap .fwModal::backdrop {
+	background: rgba(15, 23, 42, 0.45);
+	backdrop-filter: blur(2px);
+}
+
+#assocAboutWrap .fwModal__panel {
+	background: linear-gradient(
+		180deg,
+		rgba(255, 255, 255, 0.92),
+		rgba(243, 246, 239, 0.96)
+	);
+	border: 1px solid rgba(31, 35, 40, 0.12);
+	max-height: min(90vh);
+	display: flex;
+	flex-direction: column;
+}
+
+#assocAboutWrap .fwModal__head {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 14px 16px;
+	border-bottom: 1px solid rgba(31, 35, 40, 0.1);
+}
+
+#assocAboutWrap .fwModal__title {
+	margin: 0;
+	font-size: 18px;
+	font-weight: 950;
+	color: rgba(47, 93, 80, 0.95);
+	letter-spacing: 0.06em;
+}
+
+#assocAboutWrap .fwModal__close {
+	width: 38px;
+	height: 38px;
+	border: 1px solid rgba(31, 35, 40, 0.12);
+	border-radius: 12px;
+	background: rgba(255, 255, 255, 0.65);
+	cursor: pointer;
+	font-size: 22px;
+	line-height: 1;
+}
+
+#assocAboutWrap .fwModal__body {
+	padding: 16px 18px;
+	overflow: auto; /* 內容長就捲動 */
+}
+
+#assocAboutWrap .fwModal__foot {
+	padding: 14px 18px;
+	border-top: 1px solid rgba(31, 35, 40, 0.1);
+	display: flex;
+	justify-content: flex-end;
+	gap: 10px;
+}

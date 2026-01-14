@@ -1,0 +1,31 @@
+{
+	"fields": {
+		"company": "公司名稱",
+		"pointOfContact": "聯絡人姓名",
+		"companyAddress": "公司地址",
+		"phone": "連絡電話",
+		"email": "電子信箱",
+		"service": "服務項目",
+		"subject": "主旨",
+		"message": "留言內容",
+		"note" : "備註(20字以內)",
+		"industry": "公司行業別",
+		"taxId": "公司統編"
+	},
+	"buttons": {
+		"submit": "送出",
+		"reset": "清空"
+	},
+	"serviceOptions": {
+		"cloud": "雲端服務平台",
+		"software": "ERP商用軟體",
+		"hardware": "商用主機與周邊",
+		"web": "網頁設計",
+		"grant": "政府計畫專案",
+		"course": "課程諮詢",
+		"other": "其他"
+	},
+	"placeholders": {
+		"servicePlaceholder": "選擇服務項目"
+	}
+}

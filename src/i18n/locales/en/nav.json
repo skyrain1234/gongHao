@@ -1,0 +1,22 @@
+{
+	"home": "Home",
+	"service": "Services",
+	"serviceMenu": {
+		"cloudService": "Cloud Platform Services",
+		"software": "ERP Business Software",
+		"hardware": "Business Hardware",
+		"web-design": "Web Design",
+		"project": "Government Grant Projects",
+		"class": "Professional Training Programs"
+	},
+	"about": "About Us",
+	"portfolio": "Portfolio",
+	"portfolioMenu": {
+		"web": "Web Projects",
+		"project": "Government Grant Projects"
+	},
+	"news": "Latest News",
+	"blog": "Knowledge Sharing",
+	"qa": "FAQ",
+	"contact": "Contact Us"
+}

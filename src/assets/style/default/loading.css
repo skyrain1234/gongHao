@@ -1,0 +1,51 @@
+/* ✅ Fullscreen loader */
+.page-loader {
+	position: fixed;
+	inset: 0;
+	z-index: 99999;
+	display: grid;
+	place-items: center;
+	background: #fcfcfc; /* 你可改成品牌色或白底 */
+	opacity: 1;
+	visibility: visible;
+	transition: opacity 0.45s ease, visibility 0.45s ease;
+}
+
+/* 內容置中 */
+.page-loader__inner {
+	display: grid;
+	place-items: center;
+	gap: 14px;
+	padding: 24px;
+	text-align: center;
+}
+
+.page-loader__gif {
+	max-width: min(60vw, 260px);
+	height: auto;
+	image-rendering: auto;
+}
+
+.page-loader__text {
+	font: 500 14px/1.2 system-ui, -apple-system, "Segoe UI", Roboto,
+		"Noto Sans TC", sans-serif;
+	letter-spacing: 0.08em;
+	color: rgba(255, 255, 255, 0.85);
+}
+
+/* ✅ 隱藏狀態 */
+.page-loader.is-hidden {
+	opacity: 0;
+	visibility: hidden;
+	pointer-events: none;
+}
+
+/* 可選：避免載入中被捲動 */
+html.is-loading,
+body.is-loading {
+	overflow: hidden;
+}
+.page-loader__gif {
+	display: block;
+	vertical-align: middle;
+}

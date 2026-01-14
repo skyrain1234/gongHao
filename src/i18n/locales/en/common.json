@@ -1,0 +1,37 @@
+{
+	"ok": "OK",
+	"cancel": "Cancel",
+	"save": "Save",
+	"close": "Close",
+	"switch": "Switch Language",
+	"loading": "Loading…",
+	"download": "Download",
+	"more": "More",
+	"less": "Less",
+	"allNews": "All News",
+	"allBlogs": "All Articles",
+	"all": "All",
+	"go": "go",
+	"no-data": "No items match",
+	"search":"Search articles",
+	"pagination": {
+		"aria": {
+			"pagination": "Pagination",
+			"prev": "Previous page",
+			"next": "Next page"
+		},
+		"info": {
+			"page": "Page {current} of {total}",
+			"items": "({limit} items per page, {totalItems} items total)"
+		},
+		"jump": {
+			"prefix": "Go to page",
+			"suffix": "",
+			"go": "Go"
+		},
+		"error": {
+			"integerOnly": "Please enter a valid integer page number.",
+			"range": "Page number must be between 1 and {total}."
+		}
+	}
+}

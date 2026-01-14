@@ -1,0 +1,57 @@
+{
+	"hero": {
+		"line1": "Computer hardware and software maintenance, plus related peripherals, supplies, and equipment.",
+		"line2": "We provide hardware installation, network cabling, and server deployment services tailored to your business needs.",
+		"line3": "Whenever you need advice or procurement support for IT equipment, we are your best consulting partner."
+	},
+
+	"serverIntro": {
+		"title": "Server Solutions",
+
+		"selfHosted": {
+			"title": "Benefits of Hosting Your Own Server",
+			"items": [
+				"Freely choose network bandwidth and server storage capacity based on your needs.",
+				"Control each user's data access permissions to enhance information security.",
+				"Upgrade server components (memory, CPU, storage) to improve performance.",
+				"No monthly hosting or co-location fees, reducing long-term operating costs.",
+				"Add Mail, FTP, Web and other services as required by your business.",
+				"Database quantity and capacity are not restricted."
+			]
+		},
+
+		"difference": {
+			"title": "Servers vs. Standard PCs",
+			"items": [
+				"More powerful CPUs designed to handle workloads from multiple client machines simultaneously.",
+				"Supports much higher memory (up to 96 GB compared to a typical PC’s 32 GB) for better performance.",
+				"Enterprise-grade drives support high concurrent access, long-term stable operation, and quick replacement when failures occur.",
+				"Server power supplies are more stable and reliable, ensuring safe and continuous 24/7 operation."
+			]
+		}
+	},
+
+	"steps": {
+		"step1": {
+			"number": "01",
+			"title": "Server Installation, Configuration & Maintenance",
+			"text": "We provide server planning, installation, and configuration services tailored to your business needs, helping you build a stable infrastructure with ongoing maintenance and upgrade planning."
+		},
+		"step2": {
+			"number": "02",
+			"title": "Computer Hardware Planning, Integration & Repair",
+			"text": "From hardware repair, OS reinstallation, and licensed software setup to equipment upgrades and replacements, we design complete hardware and cabling solutions based on your company’s scale and budget."
+		},
+		"step3": {
+			"number": "03",
+			"title": "Information Security Planning & Deployment",
+			"text": "We assess internal security risks and help you implement firewalls, security management tools, backup strategies, and access control to build a secure and reliable IT environment."
+		}
+	},
+
+	"hardware": {
+		"title": "POS Systems & Peripherals",
+		"subtitleHardware": "Hardware Peripherals:",
+		"subtitleConsumables": "Related Consumables:"
+	}
+}

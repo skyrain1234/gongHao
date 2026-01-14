@@ -1,0 +1,142 @@
+/* =========================================================
+ * News：列表頁樣式
+ * 對應：<div class="page-news"> ... </div>
+ * 說明：
+ *   - 顏色 / 陰影全部吃變數（--news-*、--glass-*、--color-*）
+ *   - 預設值放在 variables.css / theme.css，不在這裡寫 literal 顏色
+ * ======================================================= */
+
+/* 內層玻璃擬態容器（整個列表區） */
+.page-news {
+	/* 背景與玻璃效果 */
+	background: var(--news-bg, var(--glass-bg));
+	backdrop-filter: blur(var(--glass-blur));
+	-webkit-backdrop-filter: blur(var(--glass-blur));
+
+	/* 圓角 & 邊框：共用 token */
+	border-radius: var(--radius-lg);
+	border: 1px solid var(--glass-border-color);
+
+	/* 陰影：可用 --news-shadow 覆蓋，否則吃全站陰影 */
+	box-shadow: var(--news-shadow, var(--shadow-soft));
+
+	/* 內距：純 spacing，不走 theme 變數也可以 */
+	padding: clamp(16px, 3vw, 28px);
+}
+
+/* 小螢幕圓角稍微柔一點 */
+@media (max-width: 575.98px) {
+	.page-news {
+		border-radius: var(--radius-md);
+	}
+}
+
+/* News tabs：手機改成 2 欄網格（2*2 / 2*n） */
+@media (max-width: 767.98px) {
+	.page-news .news-tabs {
+		display: grid !important;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 12px;
+		width: 100%;
+		justify-content: initial !important;
+	}
+
+	.page-news .news-tabs .tab-pill {
+		width: 100%;
+		justify-content: center;
+		font-size: 1.05rem; /* 字大一點 */
+		font-weight: 700;
+		line-height: 1.1;
+
+		padding: 12px 16px; /* 觸控更好按 */
+		min-height: 44px; /* iOS 建議最小觸控高度 */
+		border-radius: 999px; /* 膠囊 */
+	}
+}
+
+/* =========================================================
+ * 卡片本體（NewsList.vue 的 .news-card）
+ * ======================================================= */
+
+.page-news .news-card {
+	background: var(--news-card-bg, var(--bg-surface));
+	border-radius: var(--radius-lg);
+	overflow: hidden;
+	transition: transform 0.22s ease, box-shadow 0.22s ease;
+
+	/* 預設不加陰影，hover 再出來 */
+	box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+}
+
+/* 卡片 hover：微浮起 */
+.page-news .news-card:hover {
+	transform: translateY(-4px);
+	box-shadow: var(--news-card-shadow-hover, var(--shadow-soft));
+}
+
+/* =========================================================
+ * 圖片區（16:9 縮圖）
+ * ======================================================= */
+
+.page-news .news-media {
+	aspect-ratio: 16 / 9;
+	background: var(--bg-subtle);
+	overflow: hidden;
+}
+
+/* 圖片本身：填滿容器，裁切多餘部分 */
+.page-news .news-media img {
+	object-fit: cover;
+	display: block;
+	width: 100%;
+	height: 100%;
+}
+
+/* =========================================================
+ * 文字區（標題 + 分類 + 日期）
+ * ======================================================= */
+
+/* 內文容器：用 gap 撐開內距（配合 bootstrap flex） */
+.page-news .news-card-body {
+	gap: 6px;
+}
+
+/* 標題 */
+.page-news .news-title {
+	font-size: 1.4rem;
+	font-weight: 700;
+	margin: 8px 0;
+	line-height: 1.4;
+	color: var(--color-text-main);
+}
+
+/* 分類文字：兩行截斷 */
+.page-news .news-class {
+	font-size: 1.2rem;
+	color: var(--news-class-color, var(--color-text-muted));
+	margin: 0;
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+}
+
+/* 日期 */
+.page-news .news-date {
+	margin-top: 6px;
+	font-size: 1.2rem;
+	letter-spacing: 0.06em;
+	color: var(--news-date-color, var(--color-text-muted));
+}
+
+.page-news .news-more {
+	font-size: 1.2rem;
+	color: #1a73e8;
+	font-weight: 600;
+	text-decoration: none;
+	transition: 0.25s;
+}
+
+.page-news .news-more:hover {
+	padding-left: 4px;
+}

@@ -1,0 +1,20 @@
+{
+	"hero": {
+		"title": "商用企業軟體．簡化你的每一天",
+		"subLine1": "從 ERP、雲端管理、出勤系統到客製化平台",
+		"subLine2": "一套工具，提升企業效率與數位化能力。",
+		"ctaCourse": "開課資訊",
+		"warranty" : "保證書下載"
+	},
+	"manual": {
+		"title": "說明書&保證書下載",
+		"JBS-Warranty-title":"JBS軟體保證書下載",
+		"JBS-Warranty":"JBS軟體保證書"
+	},
+	"cloud_app": {
+		"hero": {
+			"title": "AI導入與雲端服務產品",
+			"subtitle": "雲端服務 / 資安布局 / ESG建構 / 戰情規劃"
+		}
+	}
+}
