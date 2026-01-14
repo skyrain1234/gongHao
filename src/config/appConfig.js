@@ -9,12 +9,12 @@ export const appConfig = {
 	// 本地API網址
 	apiUrl: "http://localhost:8000",
 	// 正式API網址
-	// apiUrl: "https://admin.cdit168.com.tw",
+	apiUrl: "https://admin.cdit168.com.tw",
 
 	// 本地後台網址
-	adminUrl: "http://localhost:8000/admin",
+	// adminUrl: "http://localhost:8000/admin",
 	// 正式後台網址
-	// adminUrl: "https://admin.cdit168.com.tw/admin",
+	adminUrl: "https://admin.cdit168.com.tw/admin",
 
 	// SEO 設定
 	seo: {
