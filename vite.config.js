@@ -3,16 +3,16 @@ import vue from "@vitejs/plugin-vue";
 import path from "path";
 import vueDevTools from "vite-plugin-vue-devtools";
 
-// https://vite.dev/config/
-export default defineConfig({
-	base: "/gongHao/", //Github Pages 路徑用
-	plugins: [vue(), vueDevTools()],
-	resolve: {
-		alias: {
-			"@": path.resolve(__dirname, "./src"),
-		},
-	},
-	build: {
-		outDir: "docs",
-	},
-});
+export default defineConfig(({ mode }) => ({
+  base: mode === "production" ? "/gongHao/" : "/",
+  plugins: [vue(), vueDevTools()],
+  resolve: {
+    alias: {
+      "@": path.resolve(__dirname, "./src"),
+    },
+  },
+  build: {
+    outDir: "docs",
+    emptyOutDir: true,
+  },
+}));
