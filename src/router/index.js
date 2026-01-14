@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from "vue-router";
+import { createRouter, createWebHashHistory  } from "vue-router";
 
 // 訪客頁面
 import GuestLayout from "@/layouts/guest/GuestLayout.vue";
@@ -37,66 +37,6 @@ const routes = [
 		children: [
 			// 首頁
 			{ path: "", name: "home", component: Home, meta: { class: "home-body" } },
-
-			// 服務項目
-			{
-				path: "service",
-				children: [
-					// 軟體列表
-					{
-						path: "softwareList",
-						name: "softwareList",
-						component: SoftwareList,
-						meta: { layout: "SoftwareList", class: "product-body" },
-					},
-					// 軟體內頁：只吃數字
-					{
-						path: "softwareList/:softwareId(\\d+)",
-						name: "software",
-						component: SoftwareInner,
-						meta: { layout: "SoftwareInner", class: "" },
-						props: (route) => ({
-							softwareId: Number(route.params.softwareId),
-						}),
-					},
-					// 硬體列表
-					{
-						path: "hardwareList",
-						name: "hardwareList",
-						component: HardwareList,
-						meta: { layout: "HardwareList", class: "product-body" },
-					},
-					// 雲端軟體服務
-					{
-						path: "cloudApp",
-						name: "cloudApp",
-						component: CloudApp,
-						meta: { layout: "cloudApp", class: "cloud-body" },
-					},
-					// 網頁設計
-					{
-						path: "webDesign",
-						name: "webDesign",
-						component: WebDesign,
-						meta: { layout: "WebDesign", class: "product-body" },
-					},
-					// 軟體列表
-					{
-						path: "project",
-						name: "project",
-						component: Project,
-						meta: { layout: "Project", class: "product-body" },
-					},
-				],
-			},
-
-			// Q&A
-			{
-				path: "qa/:classSlug?",
-				name: "qa",
-				component: Qa,
-				meta: { class: "qa-body" },
-			},
 
 			// 最新消息
 			{
@@ -170,65 +110,6 @@ const routes = [
 				],
 			},
 
-			// 知識分享
-			{
-				path: "blog",
-				children: [
-					{
-						path: "",
-						name: "blogList",
-						component: BlogList,
-						meta: { layout: "BlogListContent", class: "news-body" },
-					},
-
-					// 指定分類列表（slug 來自 blog_class.slug）
-					{
-						path: "category/:slug",
-						name: "blogListByCategory",
-						component: BlogList,
-						meta: { layout: "blogList", class: "news-body" },
-						props: (route) => ({
-							initialSlug: route.params.slug,
-						}),
-					},
-
-					// 內頁：只吃數字，避免跟 slug /category 衝突
-					{
-						path: ":blogId(\\d+)",
-						name: "blog",
-						component: Blog,
-						meta: { layout: "blogContent", class: "news-body" },
-						props: (route) => ({
-							blogId: Number(route.params.blogId),
-						}),
-					},
-				],
-			},
-
-			// 作品集
-			{
-				path: "portfolio",
-				children: [
-					{
-						path: "",
-						name: "portfolio",
-						component: Portfolio,
-						meta: { class: "portfolio-body" },
-					},
-
-					// 內頁：只吃數字，避免跟 slug /category 衝突
-					{
-						path: ":projectId(\\d+)",
-						name: "projectContent",
-						component: ProjectContent,
-						meta: { layout: "projectContent", class: "news-body" },
-						props: (route) => ({
-							projectId: Number(route.params.projectId),
-						}),
-					},
-				],
-			},
-
 			// 關於我們
 			{
 				path: "about",
@@ -237,40 +118,29 @@ const routes = [
 				meta: { class: "about-body" },
 			},
 
-			// 保證書下載
-			{
-				path: "warranty",
-				name: "warranty",
-				component: WarrantyForm,
-				meta: { class: "product-body" },
-			},
 		],
 	},
 ];
 
 const router = createRouter({
-	history: createWebHistory(),
-	routes,
-	// 有scrollBehavior之後router-link才能帶錨點
-	scrollBehavior(to, from, savedPosition) {
-		if (savedPosition) return savedPosition;
+  history: createWebHashHistory(),
+  routes,
+  scrollBehavior(to, from, savedPosition) {
+    if (savedPosition) return savedPosition;
 
-		// 如果帶錨點
-		if (to.hash) {
-			// 抓 navbar 高度
-			const nav = document.querySelector("#navbar");
-			const navH = nav?.getBoundingClientRect().height || 0;
-			const gap = 0; //可自訂額外推多少
+    if (to.hash) {
+      const nav = document.querySelector("#navbar");
+      const navH = nav?.getBoundingClientRect().height || 0;
+      const gap = 0;
 
-			return {
-				el: to.hash,
-				top: navH + gap,
-				behavior: "smooth",
-			};
-		}
-		// 預設每次都回頂部
-		return { top: 0 };
-	},
+      return {
+        el: to.hash,
+        top: navH + gap,
+        behavior: "smooth",
+      };
+    }
+    return { top: 0 };
+  },
 });
 
 /** beforeEach：正規化 :lang + 同步 i18n/localStorage/<html lang> */
