@@ -4,7 +4,7 @@ export const appConfig = {
 	// 本地主要網址
 	// appUrl: "http://localhost:5173",
 	// 正式主要網址
-	appUrl: "https://skyrain1234.github.io",
+	appUrl: "https://skyrain1234.github.io/gongHao",
 
 	// 本地API網址
 	// apiUrl: "http://localhost:81",
