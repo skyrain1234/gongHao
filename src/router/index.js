@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from "vue-router";
+import { createRouter, createWebHashHistory  } from "vue-router";
 
 // 訪客頁面
 import GuestLayout from "@/layouts/guest/GuestLayout.vue";
@@ -140,7 +140,7 @@ const routes = [
 ];
 
 const router = createRouter({
-	history: createWebHistory(),
+	history: createWebHashHistory("/gongHao/"),
 	routes,
 	// 有scrollBehavior之後router-link才能帶錨點
 	scrollBehavior(to, from, savedPosition) {
