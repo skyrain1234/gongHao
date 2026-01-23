@@ -1,0 +1,883 @@
+#themeCoursesCartoon.themeCoursesCartoon {
+	--bg: #fff7ec;
+	--ink: #2e2a25;
+	--muted: rgba(46, 42, 37, 0.7);
+	--stroke: rgba(46, 42, 37, 0.22);
+	--paper: rgba(255, 255, 255, 0.88);
+
+	--shadow: 0 18px 0 rgba(46, 42, 37, 0.1);
+	--shadowSoft: 0 14px 30px rgba(30, 20, 10, 0.12);
+
+	--r1: 26px;
+	--r2: 34px;
+
+	position: relative;
+	isolation: isolate;
+	overflow: hidden;
+	padding: clamp(44px, 6vw, 84px) 0;
+	background: var(--bg);
+	color: var(--ink);
+	font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+		"PingFang TC", "Microsoft JhengHei", Arial, sans-serif;
+}
+
+/* background */
+#themeCoursesCartoon .tccBg {
+	position: absolute;
+	inset: 0;
+	z-index: 0;
+	pointer-events: none;
+}
+#themeCoursesCartoon .tccWave {
+	position: absolute;
+	left: -10%;
+	right: -10%;
+	height: 220px;
+	border-radius: 999px;
+	filter: blur(1px);
+	opacity: 0.55;
+	transform: rotate(-2deg);
+	animation: tccFloat 9s ease-in-out infinite;
+}
+#themeCoursesCartoon .tccWave.w1 {
+	top: -120px;
+	background: radial-gradient(
+			circle at 25% 45%,
+			rgba(255, 178, 92, 0.55),
+			transparent 60%
+		),
+		radial-gradient(
+			circle at 65% 55%,
+			rgba(126, 199, 255, 0.4),
+			transparent 62%
+		);
+}
+#themeCoursesCartoon .tccWave.w2 {
+	bottom: -130px;
+	transform: rotate(3deg);
+	animation-duration: 11s;
+	background: radial-gradient(
+			circle at 30% 55%,
+			rgba(123, 214, 183, 0.55),
+			transparent 60%
+		),
+		radial-gradient(
+			circle at 70% 45%,
+			rgba(255, 127, 106, 0.38),
+			transparent 62%
+		);
+}
+#themeCoursesCartoon .tccConfetti {
+	position: absolute;
+	width: 14px;
+	height: 14px;
+	border: 2px solid var(--stroke);
+	border-radius: 6px;
+	opacity: 0.55;
+	animation: tccSpin 10s linear infinite;
+}
+#themeCoursesCartoon .tccConfetti.c1 {
+	top: 18%;
+	left: 6%;
+	background: rgba(255, 178, 92, 0.55);
+}
+#themeCoursesCartoon .tccConfetti.c2 {
+	top: 10%;
+	right: 10%;
+	background: rgba(199, 163, 255, 0.45);
+	animation-duration: 12s;
+}
+#themeCoursesCartoon .tccConfetti.c3 {
+	bottom: 14%;
+	left: 14%;
+	background: rgba(126, 199, 255, 0.45);
+	animation-duration: 14s;
+}
+
+#themeCoursesCartoon .tccCloud {
+	position: absolute;
+	width: 220px;
+	height: 90px;
+	background: rgba(255, 255, 255, 0.55);
+	border: 2px solid rgba(46, 42, 37, 0.16);
+	border-radius: 999px;
+	opacity: 0.55;
+	animation: tccDrift 16s ease-in-out infinite;
+}
+#themeCoursesCartoon .tccCloud::before,
+#themeCoursesCartoon .tccCloud::after {
+	content: "";
+	position: absolute;
+	background: inherit;
+	border: inherit;
+	border-radius: 999px;
+}
+#themeCoursesCartoon .tccCloud::before {
+	width: 90px;
+	height: 70px;
+	left: 18px;
+	top: -22px;
+}
+#themeCoursesCartoon .tccCloud::after {
+	width: 120px;
+	height: 84px;
+	right: 22px;
+	top: -30px;
+}
+#themeCoursesCartoon .tccCloud.cl1 {
+	top: 14%;
+	left: -40px;
+}
+#themeCoursesCartoon .tccCloud.cl2 {
+	top: 42%;
+	right: -60px;
+	animation-duration: 18s;
+}
+
+@keyframes tccFloat {
+	0%,
+	100% {
+		transform: translateY(0) rotate(-2deg);
+	}
+	50% {
+		transform: translateY(10px) rotate(-2deg);
+	}
+}
+@keyframes tccSpin {
+	to {
+		transform: rotate(360deg);
+	}
+}
+@keyframes tccDrift {
+	0%,
+	100% {
+		transform: translateX(0);
+	}
+	50% {
+		transform: translateX(18px);
+	}
+}
+
+/* wrapper */
+#themeCoursesCartoon .tccWrap {
+	position: relative;
+	z-index: 1;
+	width: min(1160px, calc(100% - 32px));
+	margin: 0 auto;
+}
+
+/* header */
+#themeCoursesCartoon .tccHead {
+	background: var(--paper);
+	border: 2px solid var(--stroke);
+	border-radius: var(--r2);
+	box-shadow: var(--shadow);
+	padding: clamp(18px, 3vw, 28px);
+	position: relative;
+	overflow: hidden;
+
+	opacity: 0;
+	transform: translateY(12px);
+	transition: opacity 0.6s ease, transform 0.6s ease;
+}
+#themeCoursesCartoon .tccHead.is-in {
+	opacity: 1;
+	transform: translateY(0);
+}
+
+#themeCoursesCartoon .tccHead::after {
+	content: "";
+	position: absolute;
+	inset: -20%;
+	background: radial-gradient(
+			circle at 20% 30%,
+			rgba(255, 178, 92, 0.35),
+			transparent 55%
+		),
+		radial-gradient(
+			circle at 70% 40%,
+			rgba(126, 199, 255, 0.25),
+			transparent 55%
+		),
+		radial-gradient(
+			circle at 55% 75%,
+			rgba(123, 214, 183, 0.25),
+			transparent 55%
+		);
+	transform: rotate(6deg);
+	opacity: 0.65;
+	pointer-events: none;
+}
+#themeCoursesCartoon .tccBadge {
+	display: inline-flex;
+	align-items: center;
+	padding: 10px 14px;
+	border-radius: 999px;
+	border: 2px solid var(--stroke);
+	background: rgba(255, 178, 92, 0.25);
+	font-weight: 1000;
+	letter-spacing: 0.16em;
+	font-size: 13px;
+	position: relative;
+	z-index: 1;
+}
+#themeCoursesCartoon .tccTitle {
+	margin: 12px 0 8px;
+	font-size: clamp(24px, 3.1vw, 36px);
+	line-height: 1.18;
+	position: relative;
+	z-index: 1;
+}
+#themeCoursesCartoon .tccDesc {
+	margin: 0;
+	color: var(--muted);
+	line-height: 1.85;
+	max-width: 76ch;
+	position: relative;
+	z-index: 1;
+	font-weight: 700;
+}
+
+/* chips */
+#themeCoursesCartoon .tccChips {
+	margin-top: 14px;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+	position: relative;
+	z-index: 1;
+}
+#themeCoursesCartoon .tccChip {
+	appearance: none;
+	border: 2px solid var(--stroke);
+	background: rgba(255, 255, 255, 0.9);
+	border-radius: 999px;
+	padding: 10px 14px;
+	font-weight: 1000;
+	cursor: pointer;
+	box-shadow: 0 10px 0 rgba(46, 42, 37, 0.1);
+	transition: transform 0.16s ease, box-shadow 0.16s ease, background 0.16s ease;
+}
+#themeCoursesCartoon .tccChip:hover {
+	transform: translateY(-1px);
+}
+#themeCoursesCartoon .tccChip:active {
+	transform: translateY(2px);
+	box-shadow: 0 6px 0 rgba(46, 42, 37, 0.1);
+}
+#themeCoursesCartoon .tccChip.is-active {
+	background: rgba(255, 178, 92, 0.35);
+}
+
+/* list */
+#themeCoursesCartoon .tccList {
+	margin-top: 18px;
+	display: grid;
+	gap: 16px;
+}
+
+/* items (start hidden; JS will add .is-in sequentially) */
+#themeCoursesCartoon .tccItem {
+	display: grid;
+	grid-template-columns: 240px 1fr 180px;
+	gap: 16px;
+	align-items: stretch;
+
+	border: 2px solid var(--stroke);
+	border-radius: var(--r2);
+	background: rgba(255, 255, 255, 0.92);
+	box-shadow: var(--shadow);
+	padding: 16px;
+	position: relative;
+	overflow: hidden;
+
+	opacity: 0;
+	transform: translateY(18px) scale(0.985);
+	transition: opacity 0.55s ease, transform 0.55s ease, box-shadow 0.18s ease;
+}
+#themeCoursesCartoon .tccItem.is-in {
+	opacity: 1;
+	transform: translateY(0) scale(1);
+}
+#themeCoursesCartoon .tccItem:hover {
+	box-shadow: var(--shadowSoft);
+}
+
+#themeCoursesCartoon .tccItem::before {
+	content: "";
+	position: absolute;
+	width: 320px;
+	height: 320px;
+	border-radius: 80px;
+	right: -160px;
+	top: -160px;
+	background: rgba(255, 178, 92, 0.3);
+	transform: rotate(18deg);
+	border: 2px solid rgba(46, 42, 37, 0.12);
+}
+#themeCoursesCartoon .tccItem--alt::before {
+	background: rgba(255, 127, 106, 0.26);
+}
+#themeCoursesCartoon .tccItem--mint::before {
+	background: rgba(123, 214, 183, 0.3);
+}
+#themeCoursesCartoon .tccItem--sky::before {
+	background: rgba(126, 199, 255, 0.3);
+}
+
+/* left */
+#themeCoursesCartoon .tccItem__left {
+	position: relative;
+	z-index: 1;
+	padding: 6px 6px 8px;
+}
+
+/* sticker + stamp pop */
+#themeCoursesCartoon .tccSticker {
+	position: absolute;
+	top: -6px;
+	left: -6px;
+	padding: 8px 12px;
+	border-radius: 14px;
+	border: 2px solid var(--stroke);
+	font-weight: 1000;
+	box-shadow: 0 10px 0 rgba(46, 42, 37, 0.1);
+	transform: rotate(-8deg);
+	background: rgba(255, 178, 92, 0.45);
+	transform-origin: 18% 18%;
+	will-change: transform, filter;
+}
+#themeCoursesCartoon .tccSticker--new {
+	background: rgba(199, 163, 255, 0.4);
+}
+#themeCoursesCartoon .tccSticker--care {
+	background: rgba(123, 214, 183, 0.4);
+}
+#themeCoursesCartoon .tccSticker--go {
+	background: rgba(126, 199, 255, 0.4);
+}
+
+#themeCoursesCartoon .tccSticker::after {
+	content: "";
+	position: absolute;
+	inset: -8px;
+	border-radius: 18px;
+	border: 2px dashed rgba(46, 42, 37, 0.18);
+	opacity: 0;
+	transform: scale(0.7) rotate(-10deg);
+	pointer-events: none;
+}
+#themeCoursesCartoon .tccItem:hover .tccSticker {
+	animation: tccStampPop 0.42s cubic-bezier(0.2, 0.9, 0.2, 1) both;
+	filter: drop-shadow(0 10px 0 rgba(46, 42, 37, 0.1));
+}
+#themeCoursesCartoon .tccItem:hover .tccSticker::after {
+	animation: tccStampRing 0.42s ease-out both;
+}
+
+@keyframes tccStampPop {
+	0% {
+		transform: rotate(-8deg) scale(1) translateY(0);
+	}
+	35% {
+		transform: rotate(-12deg) scale(1.18) translateY(-3px);
+	}
+	62% {
+		transform: rotate(-6deg) scale(0.96) translateY(1px);
+	}
+	100% {
+		transform: rotate(-8deg) scale(1) translateY(0);
+	}
+}
+@keyframes tccStampRing {
+	0% {
+		opacity: 0;
+		transform: scale(0.55) rotate(-18deg);
+	}
+	35% {
+		opacity: 0.85;
+		transform: scale(1) rotate(-8deg);
+	}
+	100% {
+		opacity: 0;
+		transform: scale(1.25) rotate(-2deg);
+	}
+}
+
+/* icon */
+#themeCoursesCartoon .tccIcon {
+	width: 140px;
+	height: 140px;
+	margin: 18px auto 10px;
+	border-radius: 34px;
+	border: 2px solid var(--stroke);
+	box-shadow: 0 12px 0 rgba(46, 42, 37, 0.1);
+	background: rgba(255, 255, 255, 0.92);
+	position: relative;
+	overflow: hidden;
+	transform: rotate(-2deg);
+	animation: tccBop 3.8s ease-in-out infinite;
+}
+#themeCoursesCartoon .tccIcon__face {
+	position: absolute;
+	inset: 0;
+}
+@keyframes tccBop {
+	0%,
+	100% {
+		transform: rotate(-2deg) translateY(0);
+	}
+	50% {
+		transform: rotate(1deg) translateY(-2px);
+	}
+}
+
+#themeCoursesCartoon .tccIcon__spark {
+	position: absolute;
+	width: 10px;
+	height: 10px;
+	border-radius: 3px;
+	border: 2px solid rgba(46, 42, 37, 0.18);
+	background: rgba(255, 178, 92, 0.55);
+	animation: tccPop 2.2s ease-in-out infinite;
+}
+#themeCoursesCartoon .tccIcon__spark.s1 {
+	top: 14px;
+	right: 18px;
+	transform: rotate(15deg);
+}
+#themeCoursesCartoon .tccIcon__spark.s2 {
+	bottom: 16px;
+	left: 18px;
+	background: rgba(126, 199, 255, 0.45);
+	animation-duration: 2.8s;
+}
+@keyframes tccPop {
+	0%,
+	100% {
+		transform: translateY(0) rotate(15deg);
+		opacity: 0.9;
+	}
+	50% {
+		transform: translateY(-6px) rotate(30deg);
+		opacity: 0.65;
+	}
+}
+
+/* icon variants */
+#themeCoursesCartoon .tccIcon--book {
+	background: rgba(255, 178, 92, 0.22);
+}
+#themeCoursesCartoon .tccIcon--book .tccIcon__face::before {
+	content: "";
+	position: absolute;
+	width: 92px;
+	height: 76px;
+	left: 26px;
+	top: 34px;
+	border-radius: 16px;
+	border: 2px solid var(--stroke);
+	background: rgba(255, 255, 255, 0.95);
+	box-shadow: inset 0 -10px 0 rgba(255, 178, 92, 0.18);
+}
+#themeCoursesCartoon .tccIcon--book .tccIcon__face::after {
+	content: "";
+	position: absolute;
+	width: 2px;
+	height: 70px;
+	left: 72px;
+	top: 38px;
+	background: rgba(46, 42, 37, 0.18);
+	border-radius: 2px;
+}
+
+#themeCoursesCartoon .tccIcon--heart {
+	background: rgba(123, 214, 183, 0.22);
+}
+#themeCoursesCartoon .tccIcon--heart .tccIcon__face::before {
+	content: "";
+	position: absolute;
+	width: 92px;
+	height: 92px;
+	left: 24px;
+	top: 30px;
+	border-radius: 28px;
+	border: 2px solid var(--stroke);
+	background: rgba(255, 255, 255, 0.95);
+}
+#themeCoursesCartoon .tccIcon--heart .tccIcon__face::after {
+	content: "";
+	position: absolute;
+	width: 44px;
+	height: 36px;
+	left: 48px;
+	top: 62px;
+	border-radius: 14px 14px 18px 18px;
+	border: 2px solid rgba(46, 42, 37, 0.16);
+	background: rgba(255, 127, 106, 0.25);
+	transform: rotate(-6deg);
+}
+
+#themeCoursesCartoon .tccIcon--mic {
+	background: rgba(126, 199, 255, 0.22);
+}
+#themeCoursesCartoon .tccIcon--mic .tccIcon__face::before {
+	content: "";
+	position: absolute;
+	width: 22px;
+	height: 60px;
+	left: 59px;
+	top: 40px;
+	border-radius: 999px;
+	border: 2px solid rgba(46, 42, 37, 0.16);
+	background: rgba(255, 255, 255, 0.95);
+}
+#themeCoursesCartoon .tccIcon--mic .tccIcon__face::after {
+	content: "";
+	position: absolute;
+	width: 44px;
+	height: 16px;
+	left: 48px;
+	top: 92px;
+	border-radius: 999px;
+	border: 2px solid rgba(46, 42, 37, 0.12);
+	background: rgba(255, 178, 92, 0.28);
+}
+
+#themeCoursesCartoon .tccIcon--dice {
+	background: rgba(199, 163, 255, 0.22);
+}
+#themeCoursesCartoon .tccIcon--dice .tccIcon__face::before {
+	content: "";
+	position: absolute;
+	width: 84px;
+	height: 84px;
+	left: 28px;
+	top: 28px;
+	border-radius: 22px;
+	border: 2px solid rgba(46, 42, 37, 0.16);
+	background: rgba(255, 255, 255, 0.95);
+	box-shadow: inset 0 -12px 0 rgba(199, 163, 255, 0.18);
+}
+#themeCoursesCartoon .tccIcon--dice .tccIcon__face::after {
+	content: "";
+	position: absolute;
+	width: 8px;
+	height: 8px;
+	border-radius: 999px;
+	background: rgba(46, 42, 37, 0.4);
+	left: 46px;
+	top: 46px;
+	box-shadow: 34px 0 0 rgba(46, 42, 37, 0.4), 0 34px 0 rgba(46, 42, 37, 0.4),
+		34px 34px 0 rgba(46, 42, 37, 0.4), 17px 17px 0 rgba(46, 42, 37, 0.4);
+}
+
+/* pills */
+#themeCoursesCartoon .tccMeta {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+	justify-content: center;
+}
+#themeCoursesCartoon .tccPill {
+	border: 2px solid rgba(46, 42, 37, 0.16);
+	border-radius: 999px;
+	padding: 7px 10px;
+	font-weight: 1000;
+	font-size: 12px;
+	background: rgba(255, 178, 92, 0.18);
+}
+#themeCoursesCartoon .tccPill--soft {
+	background: rgba(255, 255, 255, 0.78);
+}
+
+/* main */
+#themeCoursesCartoon .tccItem__main {
+	position: relative;
+	z-index: 1;
+	padding: 6px 6px 10px;
+}
+#themeCoursesCartoon .tccItem__title {
+	margin: 6px 0 6px;
+	font-weight: 1000;
+	font-size: 20px;
+}
+#themeCoursesCartoon .tccItem__text {
+	margin: 0 0 12px;
+	color: var(--muted);
+	line-height: 1.9;
+	font-weight: 750;
+}
+
+/* info */
+#themeCoursesCartoon .tccInfoRow {
+	display: grid;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+	gap: 10px;
+	margin-top: 10px;
+}
+#themeCoursesCartoon .tccInfo {
+	border: 2px dashed rgba(46, 42, 37, 0.22);
+	border-radius: 18px;
+	background: rgba(255, 255, 255, 0.88);
+	padding: 10px 12px;
+}
+#themeCoursesCartoon .tccInfo__k {
+	font-weight: 1000;
+	font-size: 12px;
+	letter-spacing: 0.1em;
+	opacity: 0.85;
+}
+#themeCoursesCartoon .tccInfo__v {
+	margin-top: 4px;
+	font-weight: 1000;
+}
+
+/* actions */
+#themeCoursesCartoon .tccActions {
+	margin-top: 12px;
+	display: flex;
+	gap: 10px;
+	flex-wrap: wrap;
+	align-items: center;
+}
+#themeCoursesCartoon .tccBtn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding: 12px 16px;
+	border-radius: 18px;
+	border: 2px solid var(--stroke);
+	background: rgba(255, 178, 92, 0.4);
+	font-weight: 1000;
+	text-decoration: none;
+	color: var(--ink);
+	box-shadow: 0 12px 0 rgba(46, 42, 37, 0.1);
+	transition: transform 0.16s ease, box-shadow 0.16s ease, background 0.16s ease;
+	white-space: nowrap;
+}
+#themeCoursesCartoon .tccBtn:hover {
+	transform: translateY(-1px);
+}
+#themeCoursesCartoon .tccBtn:active {
+	transform: translateY(2px);
+	box-shadow: 0 6px 0 rgba(46, 42, 37, 0.1);
+}
+#themeCoursesCartoon .tccBtn--ghost {
+	background: rgba(255, 255, 255, 0.88);
+}
+#themeCoursesCartoon .tccBtn--cta {
+	background: rgba(126, 199, 255, 0.35);
+}
+
+/* right */
+#themeCoursesCartoon .tccItem__right {
+	position: relative;
+	z-index: 1;
+	display: flex;
+	align-items: flex-start;
+	justify-content: flex-end;
+	padding-top: 8px;
+}
+#themeCoursesCartoon .tccRibbon {
+	display: inline-flex;
+	padding: 10px 12px;
+	border-radius: 16px;
+	border: 2px solid var(--stroke);
+	background: rgba(255, 127, 106, 0.26);
+	font-weight: 1000;
+	transform: rotate(6deg);
+	box-shadow: 0 10px 0 rgba(46, 42, 37, 0.1);
+}
+#themeCoursesCartoon .tccDoodle {
+	position: absolute;
+	border: 2px solid rgba(46, 42, 37, 0.16);
+	background: rgba(255, 255, 255, 0.55);
+	opacity: 0.8;
+}
+#themeCoursesCartoon .tccDoodle.d1 {
+	width: 60px;
+	height: 60px;
+	border-radius: 18px;
+	right: 8px;
+	bottom: 12px;
+	transform: rotate(12deg);
+}
+#themeCoursesCartoon .tccDoodle.d2 {
+	width: 22px;
+	height: 22px;
+	border-radius: 8px;
+	right: 76px;
+	bottom: 22px;
+	background: rgba(126, 199, 255, 0.35);
+	transform: rotate(-10deg);
+}
+#themeCoursesCartoon .tccDoodle.d3 {
+	width: 34px;
+	height: 34px;
+	border-radius: 999px;
+	right: 54px;
+	bottom: 64px;
+	background: rgba(123, 214, 183, 0.35);
+}
+
+/* CTA */
+#themeCoursesCartoon .tccCta {
+	margin-top: 18px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 14px;
+	padding: 16px 16px;
+	border: 2px solid var(--stroke);
+	border-radius: var(--r2);
+	background: rgba(255, 255, 255, 0.9);
+	box-shadow: var(--shadow);
+
+	opacity: 0;
+	transform: translateY(12px);
+	transition: opacity 0.6s ease, transform 0.6s ease;
+}
+#themeCoursesCartoon .tccCta.is-in {
+	opacity: 1;
+	transform: translateY(0);
+}
+#themeCoursesCartoon .tccCta__title {
+	font-weight: 1000;
+	font-size: 16px;
+	margin-bottom: 4px;
+}
+#themeCoursesCartoon .tccCta__text {
+	color: var(--muted);
+	font-weight: 800;
+	line-height: 1.7;
+}
+
+/* =========================
+   FIVE-POINT STAR burst (JS injects .tccBurst + .tccStar)
+========================= */
+#themeCoursesCartoon .tccBurst {
+	position: absolute;
+	inset: 0;
+	pointer-events: none;
+	z-index: 2; /* above content */
+	overflow: visible;
+}
+
+/* star element */
+#themeCoursesCartoon .tccStar {
+	position: absolute;
+	left: var(--x, 80%);
+	top: var(--y, 18%);
+	width: 20px;
+	height: 20px;
+	transform: translate(-50%, -50%) scale(0.2);
+	opacity: 0;
+	filter: drop-shadow(0 10px 0 rgba(46, 42, 37, 0.08));
+}
+
+/* ✅ five-point star, solid + outline (no dashed look) */
+#themeCoursesCartoon .tccStar::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	background: var(--col, rgba(255, 178, 92, 0.92));
+	clip-path: polygon(
+		50% 0%,
+		61% 35%,
+		98% 35%,
+		68% 56%,
+		79% 91%,
+		50% 70%,
+		21% 91%,
+		32% 56%,
+		2% 35%,
+		39% 35%
+	);
+	border-radius: 2px;
+	box-shadow: 0 0 0 2px rgba(46, 42, 37, 0.12),
+		0 10px 18px rgba(30, 20, 10, 0.1);
+}
+
+/* highlight dot */
+#themeCoursesCartoon .tccStar::after {
+	content: "";
+	position: absolute;
+	width: 6px;
+	height: 6px;
+	left: 60%;
+	top: 28%;
+	border-radius: 999px;
+	background: rgba(255, 255, 255, 0.85);
+	transform: translate(-50%, -50%);
+	opacity: 0.95;
+}
+
+/* star pop animation */
+#themeCoursesCartoon .tccItem.is-in .tccStar {
+	animation: tccStarPop 0.62s ease-out both;
+	animation-delay: var(--d, 0ms);
+}
+
+@keyframes tccStarPop {
+	0% {
+		opacity: 0;
+		transform: translate(-50%, -50%) scale(0.2) translate(0, 0) rotate(0deg);
+	}
+	25% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+		transform: translate(-50%, -50%) scale(1)
+			translate(var(--tx, 0px), var(--ty, 0px)) rotate(210deg);
+	}
+}
+
+/* responsive */
+@media (max-width: 980px) {
+	#themeCoursesCartoon .tccItem {
+		grid-template-columns: 220px 1fr;
+	}
+	#themeCoursesCartoon .tccItem__right {
+		display: none;
+	}
+	#themeCoursesCartoon .tccInfoRow {
+		grid-template-columns: 1fr;
+	}
+}
+@media (max-width: 680px) {
+	#themeCoursesCartoon .tccItem {
+		grid-template-columns: 1fr;
+	}
+	#themeCoursesCartoon .tccSticker {
+		top: -10px;
+		left: -10px;
+	}
+	#themeCoursesCartoon .tccIcon {
+		margin: 22px auto 10px;
+	}
+	#themeCoursesCartoon .tccCta {
+		flex-direction: column;
+		align-items: flex-start;
+	}
+}
+
+/* reduced motion */
+@media (prefers-reduced-motion: reduce) {
+	#themeCoursesCartoon .tccWave,
+	#themeCoursesCartoon .tccConfetti,
+	#themeCoursesCartoon .tccCloud,
+	#themeCoursesCartoon .tccIcon,
+	#themeCoursesCartoon .tccItem:hover .tccSticker,
+	#themeCoursesCartoon .tccItem.is-in .tccStar {
+		animation: none !important;
+	}
+	#themeCoursesCartoon .tccItem,
+	#themeCoursesCartoon .tccHead,
+	#themeCoursesCartoon .tccCta {
+		transition: none !important;
+		opacity: 1 !important;
+		transform: none !important;
+	}
+}

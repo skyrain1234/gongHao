@@ -1,4 +1,4 @@
-// src/utils/reveal-native.js
+// src/utils/reveal.js
 export function initReveal(rootSelector = "#assocAboutWrap") {
     // 限定範圍：拆元件後也不會掃到別頁
 	const root = document.querySelector(rootSelector) || document;

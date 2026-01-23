@@ -67,7 +67,7 @@
 							</button>
 						</li>
 
-						<li class="js-mega">
+						<!-- <li class="js-mega">
 							<button
 								class="mega-trigger"
 								type="button"
@@ -76,7 +76,7 @@
 							>
 								<span class="zh">會員專區</span><span class="en">Members</span>
 							</button>
-						</li>
+						</li> -->
 
 						<li class="js-mega">
 							<button
@@ -177,7 +177,7 @@
 						<div class="mega-row">
 							<div class="mega-title">主題課程</div>
 							<div class="mega-links">
-								<a href="">主題課程一覽</a>
+								<router-link :to="{ path: `/${currentLang}/course`}">主題課程一覽</router-link>
 								<!-- <a href="course-memory.html">共創小時候的回憶</a>
 								<a href="course-visit.html">幼老共下來作客</a>
 								<a href="course-chorus.html">花樹下歌聲揚（老幼合唱）</a>
@@ -188,7 +188,7 @@
 						<div class="mega-row">
 							<div class="mega-title">活動 Events</div>
 							<div class="mega-links">
-								<a href="">活動一覽</a>
+								<router-link :to="{ path: `/${currentLang}/event`}">活動一覽</router-link>
 								<!-- <a href="events-music.html">跨世代音樂饗宴</a>
 								<a href="events-run.html">跨世代路跑</a>
 								<a href="events-hakka.html">客家文化相關活動</a>
@@ -200,7 +200,7 @@
 							<div class="mega-title">人才培訓</div>
 							<div class="mega-links">
 								<!-- <a href="training-grand-teacher.html">爺奶教師（志工）培訓</a> -->
-								<a href="training-grand-teacher.html">培訓課程一覽</a>
+								<a href="#">培訓課程一覽</a>
 								<!-- <a href="training-facilitator.html">老幼共學活動帶領員</a>
 								<a href="training-designer.html">老幼共學課程規劃師</a>
 								<a href="training-operator.html">老幼共學營運管理師</a> -->
@@ -212,11 +212,11 @@
 						<div class="mega-row">
 							<div class="mega-title">研究與出版</div>
 							<div class="mega-links">
-								<a href="research-book.html">老幼共學實務應用（書籍介紹）</a>
-								<a href="research-reports.html">研究報告</a>
+								<a href="#">老幼共學實務應用（書籍介紹）</a>
+								<a href="#">研究報告</a>
 								<!-- <a href="research-open-materials.html">公開教材下載</a> -->
-								<a href="research-ai-cases.html">AI × 跨世代教材及案例</a>
-								<a href="research-sdgs.html">SDGs × 跨世代行動計畫</a>
+								<a href="#">AI × 跨世代教材及案例</a>
+								<a href="#">SDGs × 跨世代行動計畫</a>
 							</div>
 						</div>
 
@@ -235,9 +235,9 @@
 						<div class="mega-row">
 							<div class="mega-title">合作夥伴</div>
 							<div class="mega-links">
-								<a href="partners-domestic.html">國內合作 NPO</a>
-								<a href="partners-international.html">國際合作 NPO</a>
-								<a href="partners-csr.html">企業夥伴（CSR）</a>
+								<a href="#">國內合作 NPO</a>
+								<a href="#">國際合作 NPO</a>
+								<a href="#">企業夥伴（CSR）</a>
 								<!-- <a href="partners-howto.html">如何與協會合作</a> -->
 							</div>
 						</div>
@@ -245,10 +245,10 @@
 						<div class="mega-row">
 							<div class="mega-title">聯絡我們</div>
 							<div class="mega-links">
-								<a href="contact.html#address">協會地址</a>
-								<a href="contact.html#email">Email</a>
-								<a href="contact.html#social">FB/IG/Threads/YouTube</a>
-								<a href="contact.html#form">線上留言表單</a>
+								<a href="#">協會地址</a>
+								<a href="#">Email</a>
+								<a href="#">FB/IG/Threads/YouTube</a>
+								<a href="#">線上留言表單</a>
 							</div>
 						</div>
 					</div>

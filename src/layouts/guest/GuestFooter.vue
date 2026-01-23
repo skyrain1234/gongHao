@@ -23,10 +23,10 @@
 					<div class="siteFooter__divider"></div>
 
 					<ul class="siteFooter__social" aria-label="社群連結">
-						<li>
+						<li v-if="webSetting.facebook_link">
 							<a
 								class="siteFooter__icon"
-								href="#"
+								:href="webSetting.facebook_link"
 								target="_blank"
 								rel="noreferrer"
 								aria-label="Facebook"
@@ -39,10 +39,10 @@
 								</svg>
 							</a>
 						</li>
-						<li>
+						<li v-if="webSetting.instagram_link">
 							<a
 								class="siteFooter__icon"
-								href="#"
+								:href="webSetting.instagram_link"
 								target="_blank"
 								rel="noreferrer"
 								aria-label="Instagram"
@@ -55,10 +55,10 @@
 								</svg>
 							</a>
 						</li>
-						<li>
+						<li v-if="webSetting.thread_link">
 							<a
 								class="siteFooter__icon"
-								href="#"
+								:href="webSetting.thread_link"
 								target="_blank"
 								rel="noreferrer"
 								aria-label="Threads"
@@ -71,10 +71,10 @@
 								</svg>
 							</a>
 						</li>
-						<li>
+						<li v-if="webSetting.youtube_link">
 							<a
 								class="siteFooter__icon"
-								href="#"
+								:href="webSetting.youtube_link"
 								target="_blank"
 								rel="noreferrer"
 								aria-label="YouTube"
@@ -87,10 +87,10 @@
 								</svg>
 							</a>
 						</li>
-						<li>
+						<li v-if="webSetting.X_link">
 							<a
 								class="siteFooter__icon"
-								href="#"
+								:href="webSetting.X_link"
 								target="_blank"
 								rel="noreferrer"
 								aria-label="X"
@@ -103,115 +103,162 @@
 								</svg>
 							</a>
 						</li>
+						<li v-if="webSetting.line_link">
+							<a
+								class="siteFooter__icon"
+								:href="webSetting.line_link"
+								target="_blank"
+								rel="noopener noreferrer"
+								aria-label="LINE"
+							>
+								<!-- LINE icon（簡化版） -->
+								<svg viewBox="0 0 24 24" aria-hidden="true">
+									<path
+										d="M12 2C6.48 2 2 5.82 2 10.53c0 2.67 1.39 5.01 3.57 6.57-.15.52-.53 1.86-.61 2.15-.1.38.14.37.3.26.13-.09 2.07-1.36 2.96-1.96.53.15 1.09.23 1.68.23 5.52 0 10-3.82 10-8.53S17.52 2 12 2Zm-3.13 7.33h-1.3v3.34h1.3V9.33Zm2.1 3.34h-1.3V9.33h1.3v3.34Zm3.6 0h-1.2l-1.8-2.5v2.5h-1.2V9.33h1.2l1.8 2.48V9.33h1.2v3.34Zm2.33-2.34h-1.87v.7h1.87v.97h-1.87v.7h1.87v.97h-3.07V9.33h3.07v.97Z"
+									/>
+								</svg>
+							</a>
+						</li>
 					</ul>
 
 					<div class="siteFooter__meta">
 						<div class="siteFooter__line">
 							<span class="k">地址：</span
-							><span class="v">新竹縣湖口鄉中平路一段755-1號</span>
+							><span class="v">{{ webSetting.address }}</span>
 						</div>
 						<div class="siteFooter__line">
 							<span class="k">EMAIL：</span
 							><a
 								class="siteFooter__mail v"
 								href="mailto:bridge.institute2025@hotmail.com"
-								>bridge.institute2025@hotmail.com</a
+								>{{ webSetting.contact_email }}</a
 							>
 						</div>
 					</div>
 				</div>
 
 				<!-- RIGHT -->
-				<nav class="siteFooter__nav" aria-label="頁尾導覽">
-					<div class="siteFooter__cols">
-						<section class="siteFooter__col">
-							<h3 class="siteFooter__h">協會介紹</h3>
-							<a class="siteFooter__a" href="#">協會宗旨與理念</a>
-							<a class="siteFooter__a" href="#">協會沿革（成立故事）</a>
-							<a class="siteFooter__a" href="#">理事長的話</a>
-							<a class="siteFooter__a" href="#">發起人的話</a>
-							<a class="siteFooter__a" href="#">特別嘉賓/貴賓賀詞</a>
-							<a class="siteFooter__a" href="#">理監事、顧問團隊</a>
-							<a class="siteFooter__a" href="#">協會章程（可下載 PDF）</a>
-						</section>
+<!-- RIGHT -->
+<nav class="siteFooter__nav" aria-label="頁尾導覽">
+	<div class="siteFooter__cols">
+		<section class="siteFooter__col">
+			<h3 class="siteFooter__h">協會介紹</h3>
+			<router-link
+				class="siteFooter__a"
+				:to="{ path: `/${currentLang}/about`, hash: '#sec-mission' }"
+				>協會宗旨與理念</router-link
+			>
+			<router-link
+				class="siteFooter__a"
+				:to="{ path: `/${currentLang}/about`, hash: '#sec-chair' }"
+				>理事長的話</router-link
+			>
+			<router-link
+				class="siteFooter__a"
+				:to="{ path: `/${currentLang}/about`, hash: '#sec-founder' }"
+				>發起人的話</router-link
+			>
+			<router-link
+				class="siteFooter__a"
+				:to="{ path: `/${currentLang}/about`, hash: '#sec-bless' }"
+				>特別嘉賓/貴賓賀詞</router-link
+			>
+			<router-link
+				class="siteFooter__a"
+				:to="{ path: `/${currentLang}/about`, hash: '#sec-pdf' }"
+				>協會章程</router-link
+			>
+		</section>
 
-						<section class="siteFooter__col">
-							<h3 class="siteFooter__h">最新消息</h3>
-							<a class="siteFooter__a" href="#">公告</a>
-							<a class="siteFooter__a" href="#">活動花絮</a>
-							<a class="siteFooter__a" href="#">媒體報導</a>
-							<a class="siteFooter__a" href="#">出版品 / 研究成果發佈</a>
-						</section>
+		<section class="siteFooter__col">
+			<h3 class="siteFooter__h">最新消息</h3>
+			<router-link
+				class="siteFooter__a"
+				:to="{
+					name: 'newsListByCategory',
+					params: { lang: currentLang, slug: 'notice' },
+				}"
+				>公告</router-link
+			>
+			<router-link
+				class="siteFooter__a"
+				:to="{
+					name: 'newsListByCategory',
+					params: { lang: currentLang, slug: 'gallery' },
+				}"
+				>活動花絮</router-link
+			>
+			<router-link
+				class="siteFooter__a"
+				:to="{
+					name: 'newsListByCategory',
+					params: { lang: currentLang, slug: 'media' },
+				}"
+				>媒體報導</router-link
+			>
+			<router-link
+				class="siteFooter__a"
+				:to="{
+					name: 'newsListByCategory',
+					params: { lang: currentLang, slug: 'publications' },
+				}"
+				>出版品 / 研究成果發佈</router-link
+			>
+		</section>
 
-						<section class="siteFooter__col">
-							<h3 class="siteFooter__h">老幼共學主題課程</h3>
-							<a class="siteFooter__a" href="#">共創小時候的回憶</a>
-							<a class="siteFooter__a" href="#">幼老共玩樂作夥</a>
-							<a class="siteFooter__a" href="#">花樣下歌聲（老幼合唱）</a>
-							<a class="siteFooter__a" href="#">老幼大富翁（益智/桌遊）</a>
-						</section>
+		<section class="siteFooter__col">
+			<h3 class="siteFooter__h">主題課程</h3>
+			<router-link class="siteFooter__a" :to="{ path: `/${currentLang}/course` }"
+				>主題課程一覽</router-link
+			>
+		</section>
 
-						<section class="siteFooter__col">
-							<h3 class="siteFooter__h">活動</h3>
-							<a class="siteFooter__a" href="#">跨世代音樂饗宴</a>
-							<a class="siteFooter__a" href="#">跨世代路跑</a>
-							<a class="siteFooter__a" href="#">客家文化相關活動</a>
-							<a class="siteFooter__a" href="#">重大計畫一覽</a>
-						</section>
+		<section class="siteFooter__col">
+			<h3 class="siteFooter__h">活動 Events</h3>
+			<router-link class="siteFooter__a" :to="{ path: `/${currentLang}/event` }"
+				>活動一覽</router-link
+			>
+		</section>
 
-						<section class="siteFooter__col">
-							<h3 class="siteFooter__h">課程與人才培訓</h3>
-							<a class="siteFooter__a" href="#">簡易教師（志工）培訓</a>
-							<a class="siteFooter__a" href="#">老幼共學課程規劃師</a>
-							<a class="siteFooter__a" href="#">老幼共學營運管理師</a>
-							<a class="siteFooter__a" href="#">研習課程時間表與報名</a>
-						</section>
+		<section class="siteFooter__col">
+			<h3 class="siteFooter__h">人才培訓</h3>
+			<a class="siteFooter__a" href="#">培訓課程一覽</a>
+		</section>
 
-						<section class="siteFooter__col">
-							<h3 class="siteFooter__h">研究與出版</h3>
-							<a class="siteFooter__a" href="#">老幼共學實務應用</a>
-							<a class="siteFooter__a" href="#">研究報告</a>
-							<a class="siteFooter__a" href="#">公開教材下載</a>
-							<a class="siteFooter__a" href="#">AI × 跨世代教材及案例</a>
-							<a class="siteFooter__a" href="#">SDGs × 跨世代行動計畫</a>
-						</section>
+		<section class="siteFooter__col">
+			<h3 class="siteFooter__h">研究與出版</h3>
+			<a class="siteFooter__a" href="#">老幼共學實務應用（書籍介紹）</a>
+			<a class="siteFooter__a" href="#">研究報告</a>
+			<a class="siteFooter__a" href="#">AI × 跨世代教材及案例</a>
+			<a class="siteFooter__a" href="#">SDGs × 跨世代行動計畫</a>
+		</section>
 
-						<section class="siteFooter__col">
-							<h3 class="siteFooter__h">會員專區</h3>
-							<a class="siteFooter__a" href="#">入會方式（個人/團體/贊助）</a>
-							<a class="siteFooter__a" href="#">入會/贊助線上申請表</a>
-							<a class="siteFooter__a" href="#">會員權益與費用</a>
-							<a class="siteFooter__a" href="#">最新會員公告（限會員）</a>
-							<a class="siteFooter__a" href="#">理監事會議紀錄（限會員）</a>
-							<a class="siteFooter__a" href="#">下載中心（章程、表單）</a>
-						</section>
+		<section class="siteFooter__col">
+			<h3 class="siteFooter__h">合作夥伴</h3>
+			<a class="siteFooter__a" href="#">國內合作 NPO</a>
+			<a class="siteFooter__a" href="#">國際合作 NPO</a>
+			<a class="siteFooter__a" href="#">企業夥伴（CSR）</a>
+		</section>
 
-						<section class="siteFooter__col">
-							<h3 class="siteFooter__h">合作夥伴</h3>
-							<a class="siteFooter__a" href="#">國內合作 NPO</a>
-							<a class="siteFooter__a" href="#">國際合作 NPO</a>
-							<a class="siteFooter__a" href="#">企業夥伴（CSR）</a>
-							<a class="siteFooter__a" href="#">如何與協會合作</a>
-						</section>
+		<section class="siteFooter__col">
+			<h3 class="siteFooter__h">聯絡我們</h3>
+			<a class="siteFooter__a" href="#">協會地址</a>
+			<a class="siteFooter__a" href="#">Email</a>
+			<a class="siteFooter__a" href="#">FB/IG/Threads/YouTube</a>
+			<a class="siteFooter__a" href="#">線上留言表單</a>
+		</section>
+	</div>
+</nav>
 
-						<section class="siteFooter__col">
-							<h3 class="siteFooter__h">聯絡我們</h3>
-							<a class="siteFooter__a" href="#">Email</a>
-							<a class="siteFooter__a" href="#">FB</a>
-							<a class="siteFooter__a" href="#">IG</a>
-							<a class="siteFooter__a" href="#">Threads</a>
-							<a class="siteFooter__a" href="#">YouTube</a>
-							<a class="siteFooter__a" href="#">線上留言表單</a>
-						</section>
-					</div>
-				</nav>
 			</div>
 
 			<!-- bottom line -->
 			<div class="siteFooter__bottom">
 				<div class="siteFooter__bottomLine"></div>
 				<div class="siteFooter__copyright">
-					<span>Copyright © 2025 社團法人 台灣跨世代共好推動協會</span>
+					<span
+						>Copyright © {{ currentYear }} 社團法人 台灣跨世代共好推動協會</span
+					>
 					<span class="siteFooter__sep">　　</span>
 					<span>Design by 華越資通</span>
 				</div>
@@ -278,7 +325,7 @@ const props = defineProps({
 	width: 120px;
 	height: auto;
 	display: block;
-	filter: drop-shadow(0 1px 0 rgba(0, 0, 0, 0.06));
+	/* filter: drop-shadow(0 1px 0 rgba(0, 0, 0, 0.06)); */
 }
 
 .siteFooter__brandText {

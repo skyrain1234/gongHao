@@ -61,7 +61,7 @@
 	--footer-hr-opacity: 0.15;
 
 	/* 各頁面的背景圖（有需要再改路徑就好） */
-	/* --bg-about-image: url("@/assets/images/about/about-bg.png"); */
+	--bg-about-image: url("@/assets/images/about/about-bg.png");
 	--bg-image: url("@/assets/images/news/news-bg.jpg");
 
 	/* 有固定 navbar 的頁面，上方保留空間 */

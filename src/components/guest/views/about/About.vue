@@ -21,7 +21,9 @@
       <!-- <TeamSection /> -->
 
       <!-- PDF 區塊（需要 props） -->
-      <ArticlePdfSection/>
+      <ArticlePdfSection
+        :associationArticle="associationArticle"
+      />
     </div>
   </section>
 </template>
@@ -42,10 +44,22 @@ import BlessSection from "@/components/guest/views/about/07_BlessSection.vue";
 import TeamSection from "@/components/guest/views/about/08_TeamSection.vue";
 import ArticlePdfSection from "@/components/guest/views/about/09_ArticlePdfSection.vue";
 
+const associationArticleList = ref([]);
+const associationArticle = computed(() => associationArticleList.value?.[0] ?? null);
+
+const loadAssociationArticle = async () => {
+  try {
+    associationArticleList.value = await getAssociationArticleList();
+  } catch (e) {
+    associationArticleList.value = [];
+  }
+};
 
 let revealCtl = null;
 
 onMounted(async () => {
+  await loadAssociationArticle();
+  await nextTick();
 
   revealCtl = initReveal("#assocAboutWrap");
   requestAnimationFrame(() => initReveal("#assocAboutWrap")); // 第二拍保險（可留）

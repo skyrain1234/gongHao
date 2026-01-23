@@ -9,19 +9,28 @@
 
 		<article class="fwCard reveal">
 			<div class="fwPdfRow">
-				<a class="fwBtn" :href="pdfUrl" target="_blank" rel="noopener">
+				<a class="fwBtn" v-if="associationArticle?.file_url" :href="getStorageFileUrl(associationArticle.file_url)" target="_blank" rel="noopener">
 					下載 PDF
 				</a>
 			</div>
 
 			<div class="fwPdfFrame">
-				<iframe :src="pdfUrl" title="協會章程 PDF 預覽"></iframe>
+				<iframe
+					v-if="associationArticle?.file_url"
+					:src="getStorageFileUrl(associationArticle.file_url)"
+					title="協會章程 PDF 預覽"
+				></iframe>
+
+				<div v-else class="text-muted">尚未上傳章程 PDF</div>
 			</div>
 		</article>
 	</section>
 </template>
 
 <script setup>
-// ✅ Vite 建議：用 URL 取資源（build / GitHub Pages 都正確）
-const pdfUrl = new URL("@/assets/images/about/協會章程.pdf", import.meta.url).href;
+import { getStorageFileUrl } from "@/api/main/tools/storageFileTools";
+
+defineProps({
+	associationArticle: { type: Object, default: null },
+});
 </script>

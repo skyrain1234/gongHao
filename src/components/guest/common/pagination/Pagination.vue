@@ -10,7 +10,7 @@
 						@click="goToPage(currentPage - 1)"
 						:aria-label="$t('common.pagination.aria.prev')"
 					>
-						«
+						上一頁
 					</button>
 				</li>
 
@@ -59,7 +59,7 @@
 						@click="goToPage(currentPage + 1)"
 						:aria-label="$t('common.pagination.aria.next')"
 					>
-						»
+						下一頁
 					</button>
 				</li>
 			</ul>
@@ -89,7 +89,7 @@
 				class="input-group input-group-sm align-items-center justify-content-center"
 				style="width: 180px"
 			>
-				<label class="me-2 small">
+				<label class="me-2 fw-bold">
 					{{ $t("common.pagination.jump.prefix") }}
 				</label>
 
@@ -102,12 +102,12 @@
 					@keydown.enter.prevent="onGoPage"
 				/>
 
-				<label class="mx-2 small">
+				<label class="mx-2 fw-bold">
 					{{ $t("common.pagination.jump.suffix") }}
 				</label>
 			</div>
 
-			<button class="btn btn-outline-secondary" @click="onGoPage">
+			<button class="btn-pagination" @click="onGoPage">
 				{{ $t("common.pagination.jump.go") }}
 			</button>
 		</div>
@@ -329,12 +329,45 @@ function onGoPage() {
 }
 </script>
 <style lang="scss" scoped>
+.page-link {
+	color: black;
+	font-weight: 900;
+}
 .page-link:hover {
-	background-color: rgb(31, 68, 214);
-	color: white;
+	background: rgba(242, 140, 40, 0.16);
+	border-color: rgba(242, 140, 40, 0.4);
+	color: rgb(0, 0, 0);
 }
 .page-item.active .page-link {
-	background-color: rgb(31, 68, 214);
-	color: white;
+	background: rgba(242, 140, 40, 0.12);
+	color: rgb(0, 0, 0);
+	border: 1px solid rgba(242, 140, 40, 0.3);
+}
+
+.page-item.disabled {
+	cursor: not-allowed;
+	opacity: 0.45;
+}
+
+.page-item.disabled .page-link {
+	background: #ffffff;
+}
+
+.btn-pagination {
+	padding: 10px 12px;
+	border-radius: 14px;
+	border: 1px solid rgba(242, 140, 40, 0.3);
+	background: rgba(242, 140, 40, 0.12);
+	font-weight: 900;
+	color: rgba(45, 38, 32, 0.92);
+
+	transition: transform 0.18s ease, background 0.18s ease,
+		border-color 0.18s ease;
+}
+
+.btn-pagination:hover {
+	transform: translateY(-1px);
+	background: rgba(242, 140, 40, 0.16);
+	border-color: rgba(242, 140, 40, 0.4);
 }
 </style>

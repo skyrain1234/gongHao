@@ -1,10 +1,15 @@
 <template>
-	<div id="news-page" class="page-news">
-		<div class="mb-3 ms-auto me-auto" id="news-article">
-			<div class="mb-3 my-4">
+	<div id="evtOverview" class="evtOverview">
+		<div class="evtOverview__bg" aria-hidden="true">
+			<span class="evtBlob b1"></span>
+			<span class="evtBlob b2"></span>
+			<span class="evtGrain"></span>
+		</div>
+		<div class="mb-3 ms-auto me-auto" id="event-article">
+			<div class="mb-3">
 				<router-link
 					:to="`/${currentLang}/event`"
-					class="mx-2 mx-md-0 btn btn-outline-secondary btn-sm rounded-pill mb-3"
+					class="evtLink  mb-3"
 				>
 					<i class="bi bi-arrow-left-short"></i>活動列表
 				</router-link>
@@ -25,14 +30,6 @@
 			<div class="row g-4 mb-5">
 				<!-- 主文章區 -->
 				<div class="col-lg-12">
-					<!-- 預覽圖 -->
-					<!-- <div class="mb-4 thumbnail">
-						<img
-							:src="getStorageFileUrl(news.thumbnail_url)"
-							:alt="news.title"
-							class=""
-						/>
-					</div> -->
 					<!-- 內文 -->
 					<article class="article-card">
 						<div class="article-body" v-html="eventContent"></div>
@@ -45,7 +42,7 @@
 					<div class="sidebar-card">
 						<h3 class="sidebar-title">更多文章</h3>
 						<div
-							class="sidebar-news-item"
+							class="sidebar-event-item "
 							v-for="item in latestEvent"
 							:key="item.id"
 						>
@@ -60,7 +57,10 @@
 								{{ item.title }}
 							</router-link>
 						</div>
-						<router-link :to="`/${currentLang}/event`" class="sidebar-more-link">
+						<router-link
+							:to="`/${currentLang}/event`"
+							class="sidebar-more-link"
+						>
 							查看全部最新消息 <i class="bi bi-arrow-right-short"></i>
 						</router-link>
 					</div>
@@ -72,7 +72,10 @@
 
 <script setup>
 import { computed, onMounted, ref, watch } from "vue";
-import { getEvent, getLatestEvent } from "@/api/main/service/event/eventService";
+import {
+	getEvent,
+	getLatestEvent,
+} from "@/api/main/service/event/eventService";
 import { useRoute } from "vue-router";
 import {
 	getStorageFileUrl,
@@ -130,23 +133,10 @@ const eventContent = computed(() =>
 </script>
 
 <style scoped>
-/* 外層頁面背景（吃全站 bg + news 專用） */
-#news-page {
-	min-height: 100vh;
-	padding-top: var(--page-padding-top-with-navbar);
-	padding-bottom: var(--section-padding-y);
-	background-color: var(--bg-page);
-	background-image: var(--bg-image);
-	background-repeat: no-repeat;
-	background-size: cover;
-	background-position: center;
-	background-attachment: fixed;
-}
-
 /* 中央玻璃容器 */
-#news-article {
+#event-article {
 	/* width: min(1120px, 92%); */
-	width: 85vw;
+	width: 90vw;
 	margin: 0 auto;
 	background: var(--news-bg, rgba(255, 255, 255, 0.85));
 	backdrop-filter: blur(12px);
@@ -155,14 +145,12 @@ const eventContent = computed(() =>
 	padding: 1.5rem 1.5rem 2rem;
 }
 
-/* 文章大圖縮圖 */
-.thumbnail img {
-	aspect-ratio: 16 / 9;
-	width: 50%;
-	/* height: 450px; */
+/* 內文卡片（v-html 容器） */
+.article-card {
+	background: var(--bg-surface);
 	border-radius: var(--radius-md);
 	box-shadow: var(--shadow-soft);
-	display: block;
+	padding: 1.25rem 1.4rem;
 }
 
 /* 內文卡片（v-html 容器） */
@@ -180,7 +168,7 @@ const eventContent = computed(() =>
 	color: var(--color-text-main);
 }
 
-/* v-html 內圖片：限制在欄寬內，避免跑過去側邊欄 */
+/* 圖片/影片 */
 .article-card :deep(.article-body img) {
 	max-width: 100%;
 	height: auto;
@@ -189,10 +177,27 @@ const eventContent = computed(() =>
 .article-card :deep(.article-body iframe) {
 	width: 100%;
 	aspect-ratio: 16 / 9;
-	height: auto; /* 有 aspect-ratio 時這行可留可不留 */
+	height: auto;
 	display: block;
 	border: 0;
 }
+
+/* ===== v-html 內 table：不左右滑，改成可換行、穩定排版 ===== */
+.article-card :deep(.article-body table) {
+	width: 100%;
+	max-width: 100%;
+	border-collapse: collapse;   /* 若有套 bootstrap table 也不衝突 */
+}
+
+/* th/td：允許換行 + 長字串可斷 */
+.article-card :deep(.article-body th),
+.article-card :deep(.article-body td) {
+	white-space: normal;        /* ✅ 不再 nowrap */
+	word-break: break-word;
+	overflow-wrap: anywhere;    /* ✅ URL/長序號也不會撐爆 */
+	vertical-align: top;        /* 比 middle 更適合多行文字 */
+}
+
 
 /* 側邊欄卡片 */
 .sidebar-card {
@@ -213,23 +218,23 @@ const eventContent = computed(() =>
 }
 
 /* 單一消息區塊 */
-.sidebar-news-item {
+.sidebar-event-item {
 	padding: 0.65rem 0;
 	border-bottom: 1px dashed rgba(209, 213, 219, 0.85);
 }
-.sidebar-news-item:last-child {
+.sidebar-event-item :last-child {
 	border-bottom: none;
 }
 
 /* 日期 */
-.sidebar-news-item .date {
+.sidebar-event-item .date {
 	font-size: 0.95rem;
 	color: var(--news-date-color, var(--color-text-muted));
 	margin-bottom: 2px;
 }
 
 /* 標題連結 */
-.sidebar-news-item .title {
+.sidebar-event-item .title {
 	font-size: 1rem;
 	font-weight: 600;
 	line-height: 1.34;
@@ -238,7 +243,7 @@ const eventContent = computed(() =>
 	display: inline-block;
 	transition: color 0.2s ease;
 }
-.sidebar-news-item .title:hover {
+.sidebar-event-item .title:hover {
 	color: var(--color-primary);
 }
 
@@ -265,7 +270,7 @@ const eventContent = computed(() =>
 	.sidebar-title {
 		font-size: 1.5rem;
 	}
-	.sidebar-news-item .title {
+	.sidebar-event-item .title {
 		font-size: 1.2rem;
 	}
 
@@ -281,20 +286,13 @@ const eventContent = computed(() =>
 /* 手機微調 padding */
 /* ===== 手機改滿版（只改外觀與間距，不動結構） ===== */
 @media (max-width: 576px) {
-	/* page 外層不要再有額外空隙 */
-	#news-page {
-		padding-left: 0;
-		padding-right: 0;
-	}
 
 	/* 文章容器：滿版 + 去圓角/陰影/玻璃感（避免像卡片縮在中間） */
-	#news-article {
+	#event-article {
 		width: 100%;
 		max-width: 100%;
 		margin: 0; /* 不要置中留白 */
 		border-radius: 0; /* 滿版通常不留圓角 */
-		box-shadow: none; /* 陰影拿掉，視覺更像滿版 */
-		backdrop-filter: none; /* 可選：玻璃效果也拿掉更乾淨 */
 		padding: 1rem 0 1.2rem; /* 只留一點點內距 */
 	}
 
@@ -313,11 +311,6 @@ const eventContent = computed(() =>
 	.sidebar-card {
 		padding: 1rem 0.9rem;
 		border-radius: var(--radius-md); /* 或 0 */
-	}
-
-	/* 如果你有用 thumbnail，手機建議直接滿寬 */
-	.thumbnail img {
-		width: 100%;
 	}
 }
 </style>

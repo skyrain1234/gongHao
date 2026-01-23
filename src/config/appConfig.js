@@ -7,14 +7,14 @@ export const appConfig = {
 	// appUrl: "https://cdit168.com.tw",
 
 	// 本地API網址
-	apiUrl: "http://localhost:8000",
+	apiUrl: "http://localhost:81",
 	// 正式API網址
-	apiUrl: "https://admin.cdit168.com.tw",
+	// apiUrl: "https://admin.cdit168.com.tw",
 
 	// 本地後台網址
-	// adminUrl: "http://localhost:8000/admin",
+	adminUrl: "http://localhost:81",
 	// 正式後台網址
-	adminUrl: "https://admin.cdit168.com.tw/admin",
+	// adminUrl: "https://admin.cdit168.com.tw/admin",
 
 	// SEO 設定
 	seo: {
@@ -32,7 +32,7 @@ export const appConfig = {
 		// 每頁最多顯示的商品數
 		productLimit: 12,
 		//
-		newsLimit: 10,
+		newsLimit: 4,
 	},
 	listing: {
 		pageSize: 20,

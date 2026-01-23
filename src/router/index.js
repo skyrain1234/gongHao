@@ -1,25 +1,16 @@
-import { createRouter, createWebHashHistory  } from "vue-router";
+import { createRouter, createWebHistory } from "vue-router";
 
 // 訪客頁面
 import GuestLayout from "@/layouts/guest/GuestLayout.vue";
 import Home from "@/views/guest/Home.vue";
-import SoftwareInner from "@/views/guest/SoftwareInner.vue";
-import SoftwareList from "@/views/guest/SoftwareList.vue";
-import Qa from "@/views/guest/Qa.vue";
 import News from "@/views/guest/News.vue";
 import NewsList from "@/views/guest/NewsList.vue";
 import Event from "@/views/guest/Event.vue";
 import EventList from "@/views/guest/EventList.vue";
-import Blog from "@/views/guest/Blog.vue";
-import BlogList from "@/views/guest/BlogList.vue";
-import Portfolio from "@/views/guest/Portfolio.vue";
+import Course from "@/views/guest/Course.vue";
+import CourseList from "@/views/guest/CourseList.vue";
+
 import About from "@/views/guest/About.vue";
-import HardwareList from "@/views/guest/HardwareList.vue";
-import CloudApp from "@/views/guest/CloudApp.vue";
-import Project from "@/views/guest/Project.vue";
-import WebDesign from "@/views/guest/WebDesign.vue";
-import ProjectContent from "@/views/guest/ProjectContent.vue";
-import WarrantyForm from "@/components/guest/views/product/WarrantyForm.vue";
 
 import {
 	i18n,
@@ -38,6 +29,7 @@ const routes = [
 			// 首頁
 			{ path: "", name: "home", component: Home, meta: { class: "home-body" } },
 
+
 			// 最新消息
 			{
 				path: "news",
@@ -47,7 +39,7 @@ const routes = [
 						path: "",
 						name: "newsList",
 						component: NewsList,
-						meta: { layout: "NewsList", class: "news-body" },
+						meta: { layout: "NewsList", class: "" },
 					},
 
 					// 指定分類列表（slug 來自 news_class.slug）
@@ -110,6 +102,32 @@ const routes = [
 				],
 			},
 
+			// 主題
+			{
+				path: "course",
+				children: [
+					// 列表（無分類，會自動導到預設分類）
+					{
+						path: "",
+						name: "courseList",
+						component: CourseList,
+						meta: { layout: "CourseList", class: "" },
+					},
+
+					// 內頁：只吃數字，避免跟 slug /category 衝突
+					{
+						path: ":courseId(\\d+)",
+						name: "course",
+						component: Course,
+						meta: { layout: "CourseContent" },
+						props: (route) => ({
+							courseId: Number(route.params.courseId),
+						}),
+					},
+				],
+			},
+
+
 			// 關於我們
 			{
 				path: "about",
@@ -117,30 +135,33 @@ const routes = [
 				component: About,
 				meta: { class: "about-body" },
 			},
-
 		],
 	},
 ];
 
 const router = createRouter({
-  history: createWebHashHistory(),
-  routes,
-  scrollBehavior(to, from, savedPosition) {
-    if (savedPosition) return savedPosition;
+	history: createWebHistory(),
+	routes,
+	// 有scrollBehavior之後router-link才能帶錨點
+	scrollBehavior(to, from, savedPosition) {
+		if (savedPosition) return savedPosition;
 
-    if (to.hash) {
-      const nav = document.querySelector("#navbar");
-      const navH = nav?.getBoundingClientRect().height || 0;
-      const gap = 0;
+		// 如果帶錨點
+		if (to.hash) {
+			// 抓 navbar 高度
+			const nav = document.querySelector("#navbar");
+			const navH = nav?.getBoundingClientRect().height || 0;
+			const gap = 0; //可自訂額外推多少
 
-      return {
-        el: to.hash,
-        top: navH + gap,
-        behavior: "smooth",
-      };
-    }
-    return { top: 0 };
-  },
+			return {
+				el: to.hash,
+				top: navH + gap,
+				behavior: "smooth",
+			};
+		}
+		// 預設每次都回頂部
+		return { top: 0 };
+	},
 });
 
 /** beforeEach：正規化 :lang + 同步 i18n/localStorage/<html lang> */

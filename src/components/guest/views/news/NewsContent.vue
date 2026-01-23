@@ -1,5 +1,10 @@
 <template>
-	<div id="news-page" class="page-news">
+	<div id="newsOverview" class="newsOverview">
+		<div class="newsOverview__bg" aria-hidden="true">
+			<span class="newsBlob b1"></span>
+			<span class="newsBlob b2"></span>
+			<span class="newsGrain"></span>
+		</div>
 		<div class="mb-3 ms-auto me-auto" id="news-article">
 			<div class="mb-3">
 				<router-link
@@ -34,8 +39,12 @@
 						/>
 					</div> -->
 					<!-- 內文 -->
+					<!-- 文章內文 -->
 					<article class="article-card">
 						<div class="article-body" v-html="newsContent"></div>
+
+						<!-- FB embed -->
+						<div ref="fbBox" class="fbBox" v-if="news.fb_url"></div>
 					</article>
 				</div>
 			</div>
@@ -72,15 +81,19 @@
 
 <script setup>
 import { computed, onMounted, ref, watch, nextTick } from "vue";
-import { getNews, getLatestNews } from "@/api/main/service/news/newsService";
 import { useRoute } from "vue-router";
+import { getNews, getLatestNews } from "@/api/main/service/news/newsService";
 import { absolutizeContentUrls } from "@/api/main/tools/storageFileTools";
 import { useCurrentLang } from "@/api/main/tools/useCurrentLang";
 
 const { currentLang } = useCurrentLang();
+const route = useRoute();
+
 const news = ref({});
 const latestNews = ref([]);
-const route = useRoute();
+
+// ✅ FB embed 的容器（請在 template 對應加上 ref="fbBox"）
+const fbBox = ref(null);
 
 // 內文 HTML（轉換圖片 / 連結路徑）
 const newsContent = computed(() =>
@@ -91,7 +104,7 @@ const newsContent = computed(() =>
 const loadNews = async (id) => {
 	try {
 		const response = await getNews(id);
-		news.value = response;
+		news.value = response || {};
 	} catch (err) {
 		console.error("getNews error:", err);
 		news.value = {};
@@ -102,122 +115,83 @@ const loadNews = async (id) => {
 const loadLatestNews = async () => {
 	try {
 		const response = await getLatestNews(3);
-		latestNews.value = response;
+		latestNews.value = Array.isArray(response) ? response : [];
 	} catch (err) {
 		console.error("getLatestNews error:", err);
 		latestNews.value = [];
 	}
 };
 
-/** 保險：確保 fb-root 存在（你 index.html 若已經有，也不會重複） */
-function ensureFbRoot() {
-	if (!document.getElementById("fb-root")) {
-		const div = document.createElement("div");
-		div.id = "fb-root";
-		document.body.prepend(div);
-	}
-}
+/**
+ * ✅ 在 SPA / 動態資料更新後，強制重新渲染 FB embedded post
+ * 需求：
+ * 1) index.html 已載入 FB SDK（connect.facebook.net/...sdk.js#xfbml=1）
+ * 2) template 有 <div ref="fbBox"> 容器
+ */
+const renderFbPost = async () => {
+	// 沒有 url 就不渲染
+	const href = news.value?.fb_url;
+	if (!href) return;
 
-/** 把文章內的 FB 貼文連結 <a href="..."> 換成 <div class="fb-post" data-href="..."> */
-function convertFbLinksToXfbml() {
-  const root = document.querySelector("#news-article .article-body");
-  if (!root) return;
+	// 等 Vue 完成 DOM 更新（包含 v-if/v-html）
+	await nextTick();
 
-  root.querySelectorAll("a[href]").forEach((a) => {
-    const href = a.getAttribute("href") || "";
-    if (!href) return;
+	// 容器不存在就跳過
+	if (!fbBox.value) return;
 
-    const isFacebook = /facebook\.com/i.test(href);
-    if (!isFacebook) return;
+	// ✅ 先清空舊的 embed，避免路由切換殘留舊 iframe / 舊狀態
+	fbBox.value.innerHTML = `
+    <div class="fb-post" data-href="${href}" data-width="500"></div>
+  `;
 
-    // ✅ 保底規則：share/p 一律不嵌入，直接外連（最穩）
-    const isShareP = /facebook\.com\/share\/p\//i.test(href);
-    if (isShareP) {
-      const btn = document.createElement("a");
-      btn.href = href;
-      btn.target = "_blank";
-      btn.rel = "noopener noreferrer";
-      btn.className = "btn btn-outline-primary btn-sm rounded-pill";
-      btn.textContent = "開啟 Facebook 貼文";
-      a.replaceWith(btn);
-      return;
-    }
-
-    // ✅ 其他「貼文型」才嘗試嵌入
-    const isFbPost =
-      /facebook\.com\/permalink\.php/i.test(href) ||
-      /facebook\.com\/posts\//i.test(href) ||
-      /facebook\.com\/reel\//i.test(href) ||
-      /facebook\.com\/watch\/\?v=/i.test(href);
-
-    if (!isFbPost) return;
-
-    const div = document.createElement("div");
-    div.className = "fb-post";
-    div.setAttribute("data-href", href);
-    div.setAttribute("data-width", "500");
-    div.setAttribute("data-show-text", "true");
-
-    a.replaceWith(div);
-  });
-}
-
-
-/** 等 SDK ready 再 parse（避免 SPA/async 時序問題） */
-function parseFacebookWithRetry(retry = 12) {
-	if (window.FB && window.FB.XFBML) {
-		const root = document.querySelector("#news-article");
-		if (root) window.FB.XFBML.parse(root);
+	// ✅ 若 SDK 還沒載好（第一次進頁面可能會遇到），就稍後再試一次
+	if (!window.FB?.XFBML?.parse) {
+		// 做一次延遲重試（避免你看到空白）
+		setTimeout(() => {
+			if (window.FB?.XFBML?.parse && fbBox.value) {
+				window.FB.XFBML.parse(fbBox.value);
+			}
+		}, 300);
 		return;
 	}
-	if (retry <= 0) return;
-	setTimeout(() => parseFacebookWithRetry(retry - 1), 150);
-}
 
-async function enhanceEmbeds() {
-	await nextTick();
-	ensureFbRoot();
-	convertFbLinksToXfbml();
-	parseFacebookWithRetry();
-}
+	// ✅ 指定 parse 容器，避免整頁重掃
+	window.FB.XFBML.parse(fbBox.value);
+};
 
 onMounted(async () => {
 	await loadNews(route.params.newsId);
 	loadLatestNews();
-	enhanceEmbeds();
+
+	// ✅ 初次進來：渲染 FB 貼文
+	await renderFbPost();
 });
 
 // 當網址上的 newsId 改變時，重新載入該筆新聞
 watch(
 	() => route.params.newsId,
 	async (newId, oldId) => {
-		if (newId && newId !== oldId) {
-			await loadNews(newId);
-			window.scrollTo({ top: 0, behavior: "smooth" });
-			enhanceEmbeds();
-		}
+		if (!newId || newId === oldId) return;
+
+		await loadNews(newId);
+		window.scrollTo({ top: 0, behavior: "smooth" });
+
+		// ✅ 路由切換後：重新渲染 FB 貼文
+		await renderFbPost();
 	}
 );
 
-// ✅ 內容更新也要重新轉換 + parse（v-html 是重新塞 DOM）
-watch(newsContent, () => {
-	enhanceEmbeds();
-});
+// （保險）如果同一頁內 news.url 有變動，也重新渲染一次
+watch(
+	() => news.value?.url,
+	async (newUrl, oldUrl) => {
+		if (!newUrl || newUrl === oldUrl) return;
+		await renderFbPost();
+	}
+);
 </script>
 
 <style scoped>
-/* 外層頁面背景（吃全站 bg + news 專用） */
-#news-page {
-	min-height: 100vh;
-	/* padding-top: var(--page-padding-top-with-navbar); */
-	padding-bottom: var(--section-padding-y);
-	background-color: var(--bg-page);
-	background-image: var(--bg-image);
-	background-repeat: no-repeat;
-	background-size: cover;
-	background-position: center;
-	background-attachment: fixed;
-}
 
 /* 中央玻璃容器 */
 #news-article {
@@ -256,7 +230,7 @@ watch(newsContent, () => {
 	color: var(--color-text-main);
 }
 
-/* v-html 內圖片：限制在欄寬內，避免跑過去側邊欄 */
+/* 圖片/影片 */
 .article-card :deep(.article-body img) {
 	max-width: 100%;
 	height: auto;
@@ -264,24 +238,41 @@ watch(newsContent, () => {
 }
 .article-card :deep(.article-body iframe) {
 	width: 100%;
+	aspect-ratio: 16 / 9;
+	height: auto;
 	display: block;
 	border: 0;
 }
 
+/* ===== v-html 內 table：不左右滑，改成可換行、穩定排版 ===== */
+.article-card :deep(.article-body table) {
+	width: 100%;
+	max-width: 100%;
+	border-collapse: collapse;   /* 若有套 bootstrap table 也不衝突 */
+}
+
+/* th/td：允許換行 + 長字串可斷 */
+.article-card :deep(.article-body th),
+.article-card :deep(.article-body td) {
+	white-space: normal;        /* ✅ 不再 nowrap */
+	word-break: break-word;
+	overflow-wrap: anywhere;    /* ✅ URL/長序號也不會撐爆 */
+	vertical-align: top;        /* 比 middle 更適合多行文字 */
+}
+
 /* 讓 fb-post 本身置中 */
 .article-card :deep(.fb-post) {
-  display: flex;
-  justify-content: center;
+	display: flex;
+	justify-content: center;
 }
 
 /* FB 最後會產生 iframe，保險再置中一次 */
 .article-card :deep(.fb-post iframe),
 .article-card :deep(iframe[src*="facebook.com/plugins/"]) {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
 }
-
 
 /* 側邊欄卡片 */
 .sidebar-card {
@@ -370,11 +361,6 @@ watch(newsContent, () => {
 /* 手機微調 padding */
 /* ===== 手機改滿版（只改外觀與間距，不動結構） ===== */
 @media (max-width: 576px) {
-	/* page 外層不要再有額外空隙 */
-	#news-page {
-		padding-left: 10;
-		padding-right: 10;
-	}
 
 	/* 文章容器：滿版 + 去圓角/陰影/玻璃感（避免像卡片縮在中間） */
 	#news-article {
@@ -382,8 +368,6 @@ watch(newsContent, () => {
 		max-width: 100%;
 		margin: 0; /* 不要置中留白 */
 		border-radius: 0; /* 滿版通常不留圓角 */
-		box-shadow: none; /* 陰影拿掉，視覺更像滿版 */
-		backdrop-filter: none; /* 可選：玻璃效果也拿掉更乾淨 */
 		padding: 1rem 0 1.2rem; /* 只留一點點內距 */
 	}
 
