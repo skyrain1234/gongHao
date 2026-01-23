@@ -2,19 +2,19 @@ export const appConfig = {
 	// 全域設定
 	appName: "華越購物型網站",
 	// 本地主要網址
-	appUrl: "http://localhost:5173",
+	// appUrl: "http://localhost:5173",
 	// 正式主要網址
-	// appUrl: "https://cdit168.com.tw",
+	appUrl: "https://skyrain1234.github.io",
 
 	// 本地API網址
-	apiUrl: "http://localhost:81",
+	// apiUrl: "http://localhost:81",
 	// 正式API網址
-	// apiUrl: "https://admin.cdit168.com.tw",
+	apiUrl: "https://bm888Temperate.cdit168.com.tw",
 
 	// 本地後台網址
-	adminUrl: "http://localhost:81",
+	// adminUrl: "http://localhost:81",
 	// 正式後台網址
-	// adminUrl: "https://admin.cdit168.com.tw/admin",
+	adminUrl: "https://bm888Temperate.cdit168.com.tw/admin",
 
 	// SEO 設定
 	seo: {
