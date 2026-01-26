@@ -14,7 +14,8 @@
 				<div class="evtHead__badge">活動一覽</div>
 				<!-- <h2 class="evtHead__title">把重要資訊整理得更清楚</h2> -->
 				<p class="evtHead__desc">
-					公告、活動花絮、媒體報導與研究成果，都可以在這裡快速找到。使用分類與搜尋，輕鬆定位你需要的內容。
+					每一場活動，都是一次交流與參與的機會。
+					在這裡探索協會近期與歷年活動內容。
 				</p>
 			</header>
 
@@ -45,7 +46,7 @@
 							<select v-model="statusFilter" class="evtSelect__control">
 								<option value="all">全部</option>
 								<option value="open">開放報名中</option>
-								<option value="soon">尚未開始</option>
+								<option value="soon">尚未開始報名</option>
 								<option value="ended">已截止報名</option>
 							</select>
 						</label>

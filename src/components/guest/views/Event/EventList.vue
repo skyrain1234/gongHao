@@ -37,9 +37,9 @@
 						>
 							{{ statusText(eventItem) }}
 						</span>
-						<span class="evtDate" v-if="eventRangeDateOnly(eventItem)">
+						<!-- <span class="evtDate" v-if="eventRangeDateOnly(eventItem)">
 							活動時間：{{ eventRangeDateOnly(eventItem) }}
-						</span>
+						</span> -->
 					</div>
 
 					<!-- 標題：置頂標示 -->
@@ -56,6 +56,9 @@
 					<div class="evtCard__meta">
 						<span class="evtTag" v-if="signupRangeDateOnly(eventItem)">
 							報名時間：{{ signupRangeDateOnly(eventItem) }}
+						</span>
+						<span class="evtTag" v-if="eventRangeDateOnly(eventItem)">
+							活動時間：{{ eventRangeDateOnly(eventItem) }}
 						</span>
 					</div>
 
@@ -173,10 +176,11 @@
 							target="_blank"
 							rel="noopener"
 						>
-							立即報名
+							{{activeEvt?.url_text}}
 						</a>
+
 						<router-link
-							class="evtLink"
+							class="evtLink ms-2"
 							:to="{
 								name: 'event',
 								params: { lang: route.params.lang, eventId: activeEvt.id },
@@ -194,9 +198,6 @@
 </template>
 
 <script setup>
-/* =============================
- * Imports
- * ============================= */
 import {
 	ref,
 	computed,
@@ -212,58 +213,22 @@ import {
 } from "@/api/main/service/event/eventService";
 import { getStorageFileUrl } from "@/api/main/tools/storageFileTools";
 import { appConfig } from "@/config/appConfig.js";
-
 import Pagination from "@/components/guest/common/pagination/pagination.vue";
 import { useScrollOnPageChange } from "@/api/main/tools/scrollOnPageChange";
-import { absolutizeContentUrls } from "@/api/main/tools/storageFileTools";
-
-/**
- * fallbackCover 用 import（Vite 會處理 build 路徑 / hash）
- */
 import fallbackCover from "@/assets/images/event/eventDefault.png";
 
 const route = useRoute();
 
 /* =============================
- * Hashtag filter (local)
- * ============================= */
-const selectedTag = ref(""); // 空字串 = 未篩選
-
-function normalizeTagKey(tag) {
-	return String(tag || "")
-		.trim()
-		.toLowerCase();
-}
-
-function isTagActive(tag) {
-	return (
-		normalizeTagKey(tag) &&
-		normalizeTagKey(tag) === normalizeTagKey(selectedTag.value)
-	);
-}
-
-function toggleTag(tag) {
-	const k = normalizeTagKey(tag);
-	if (!k) return;
-
-	// 點同一個 -> 取消
-	selectedTag.value = isTagActive(tag) ? "" : tag;
-
-	// 篩選變了，回到第一頁
-	currentPage.value = 1;
-}
-
-/* =============================
  * Props / Emits
  * ============================= */
 const props = defineProps({
-	selectedClassId: { type: Number, default: null }, // null = 全部分類
-	viewMode: { type: String, default: "cards" }, // cards | list
-	activeYear: { type: String, default: "all" }, // all | YYYY
-	sort: { type: String, default: "date_desc" }, // date_desc | date_asc
+	selectedClassId: { type: Number, default: null },
+	viewMode: { type: String, default: "cards" },
+	activeYear: { type: String, default: "all" },
+	sort: { type: String, default: "date_desc" },
 	statusFilter: { type: String, default: "all" }, // all | open | soon | ended | none
 });
-
 const emit = defineEmits(["update:total", "update:years"]);
 
 /* =============================
@@ -271,112 +236,204 @@ const emit = defineEmits(["update:total", "update:years"]);
  * ============================= */
 const eventList = ref([]);
 const isLoading = ref(true);
-
 const currentPage = ref(1);
 const pageLimit = Number(appConfig.home.eventLimit ?? 6);
 
 /* =============================
- * Date helpers
+ * Tag filter
+ * ============================= */
+const selectedTag = ref("");
+
+function normalizeTagKey(tag) {
+	return String(tag || "")
+		.trim()
+		.toLowerCase();
+}
+function isTagActive(tag) {
+	const a = normalizeTagKey(tag);
+	const b = normalizeTagKey(selectedTag.value);
+	return !!a && a === b;
+}
+function toggleTag(tag) {
+	const k = normalizeTagKey(tag);
+	if (!k) return;
+	selectedTag.value = isTagActive(tag) ? "" : tag;
+	currentPage.value = 1;
+}
+
+/* =============================
+ * Date helpers (display)
  * ============================= */
 const getYearKey = (iso) => (iso ? String(iso).slice(0, 4) : "");
 
 function parseDate(v) {
 	if (!v) return null;
-	const d = new Date(v); // 你的後端已回 ISO (Y-m-dTH:i:sP)，這裡 OK
+	const d = new Date(v); // 後端 ISO (含時區) 才最穩
 	return Number.isNaN(d.getTime()) ? null : d;
 }
-
 function pad2(n) {
 	return String(n).padStart(2, "0");
 }
-
 function formatYMD(d) {
 	if (!d) return "";
 	return `${d.getFullYear()}-${pad2(d.getMonth() + 1)}-${pad2(d.getDate())}`;
 }
-
 function formatHM(d) {
 	if (!d) return "";
 	return `${pad2(d.getHours())}:${pad2(d.getMinutes())}`;
 }
 
-// 只顯示日期（不含時間）：YYYY-MM-DD 或 YYYY-MM-DD ～ YYYY-MM-DD
-function eventRangeDateOnly(it) {
-	if (!it) return "";
-	const s = parseDate(it.event_start_at);
-	const e = parseDate(it.event_end_at);
-
-	if (!s && !e) return "";
-	if (s && !e) return formatYMD(s);
-	if (!s && e) return `至 ${formatYMD(e)}`;
-
-	const sameDay = formatYMD(s) === formatYMD(e);
-	return sameDay ? formatYMD(s) : `${formatYMD(s)} ～ ${formatYMD(e)}`;
-}
-
-// 只顯示日期（不含時間）：YYYY-MM-DD ～ YYYY-MM-DD（缺一邊也能正常顯示）
-function signupRangeDateOnly(it) {
-	if (!it) return "";
-	const s = parseDate(it.signup_start_at);
-	const e = parseDate(it.signup_end_at);
-
-	if (!s && !e) return "";
-	if (s && !e) return `${formatYMD(s)} 起`;
-	if (!s && e) return `至 ${formatYMD(e)}`;
-
-	const sameDay = formatYMD(s) === formatYMD(e);
-	return sameDay ? formatYMD(s) : `${formatYMD(s)} ～ ${formatYMD(e)}`;
-}
-
-/** 活動日期區間：event_start_at ~ event_end_at（沒有 end 就顯示單日） */
-function eventRangeText(it) {
-	if (!it) return "";
-	const s = parseDate(it.event_start_at);
-	const e = parseDate(it.event_end_at);
-
+/** 通用日期區間 formatter */
+function formatRange(
+	startISO,
+	endISO,
+	{ dateOnly = false, withSuffix = false } = {},
+) {
+	const s = parseDate(startISO);
+	const e = parseDate(endISO);
 	if (!s && !e) return "";
 
-	// 只有 start
-	if (s && !e) return `${formatYMD(s)} ${formatHM(s)}`.trim();
+	const fmtDate = (d) => formatYMD(d);
+	const fmtTime = (d) => formatHM(d);
+	const fmtDT = (d) =>
+		dateOnly ? fmtDate(d) : `${fmtDate(d)} ${fmtTime(d)}`.trim();
 
-	// 只有 end（很少見）
-	if (!s && e) return `至 ${formatYMD(e)} ${formatHM(e)}`.trim();
+	if (s && !e) {
+		if (dateOnly && withSuffix) return `${fmtDate(s)} 起`;
+		return fmtDT(s);
+	}
+	if (!s && e) return dateOnly ? fmtDate(e) : `至 ${fmtDT(e)}`.trim();
 
-	// start & end
-	const sameDay = formatYMD(s) === formatYMD(e);
+	const sameDay = fmtDate(s) === fmtDate(e);
+
+	if (dateOnly) return sameDay ? fmtDate(s) : `${fmtDate(s)} ～ ${fmtDate(e)}`;
+
 	if (sameDay) {
-		const left = `${formatYMD(s)} ${formatHM(s)}`.trim();
-		const right = `${formatHM(e)}`.trim();
+		const left = fmtDT(s);
+		const right = fmtTime(e);
 		return right ? `${left} ～ ${right}` : left;
 	}
 
-	return `${formatYMD(s)} ${formatHM(s)} ～ ${formatYMD(e)} ${formatHM(e)}`
-		.replace(/\s+/g, " ")
-		.trim();
+	return `${fmtDT(s)} ～ ${fmtDT(e)}`.replace(/\s+/g, " ").trim();
 }
 
-/** 報名日期區間：signup_start_at ~ signup_end_at */
+// template 需要的名稱（保持不動）
+function eventRangeDateOnly(it) {
+	return formatRange(it?.event_start_at, it?.event_end_at, { dateOnly: true });
+}
+function signupRangeDateOnly(it) {
+	return formatRange(it?.signup_start_at, it?.signup_end_at, {
+		dateOnly: true,
+		withSuffix: true,
+	});
+}
+function eventRangeText(it) {
+	return formatRange(it?.event_start_at, it?.event_end_at);
+}
 function signupRangeText(it) {
-	if (!it) return "";
-	const s = parseDate(it.signup_start_at);
-	const e = parseDate(it.signup_end_at);
-
-	if (!s && !e) return;
-		// 只有 start
-	if (s && !e) return `${formatYMD(s)} ${formatHM(s)}`.trim();
-
-	// 只有 end（很少見）
-	if (!s && e) return `至 ${formatYMD(e)} ${formatHM(e)}`.trim();
-
-	return `${formatYMD(s)} ${formatHM(s)} ～ ${formatYMD(e)} ${formatHM(e)}`
-		.replace(/\s+/g, " ")
-		.trim();
+	return formatRange(it?.signup_start_at, it?.signup_end_at);
 }
-
-const timeValue = (it) => parseDate(it?.event_start_at)?.getTime() ?? 0;
 
 /* =============================
- * API：載入 / 搜尋
+ * Decorated: 一次算好衍生欄位（重點）
+ * ============================= */
+const ENDING_SOON_DAYS = 7;
+
+function computeSignupStatus(nowMs, startISO, endISO) {
+	const start = parseDate(startISO);
+	const end = parseDate(endISO);
+
+	if (!start && !end) return "none";
+	if (start && nowMs < start.getTime()) return "soon";
+	if (end && nowMs > end.getTime()) return "ended";
+	return "open";
+}
+
+function computeEndingSoon(nowMs, endISO, days = ENDING_SOON_DAYS) {
+	const end = parseDate(endISO);
+	if (!end) return false;
+	const endMs = end.getTime();
+	if (nowMs > endMs) return false;
+	const diffDays = (endMs - nowMs) / 86400000;
+	return Math.ceil(diffDays) <= days;
+}
+
+const decorated = computed(() => {
+	const nowMs = Date.now();
+
+	return eventList.value.map((it) => {
+		const tags = (it?.hashtag ? String(it.hashtag) : "")
+			.split(",")
+			.map((x) => x.trim())
+			.filter(Boolean);
+
+		const tagKeys = tags.map((t) => normalizeTagKey(t)).filter(Boolean);
+
+		const status = computeSignupStatus(
+			nowMs,
+			it?.signup_start_at,
+			it?.signup_end_at,
+		);
+		const endingSoon =
+			status === "open"
+				? computeEndingSoon(nowMs, it?.signup_end_at, ENDING_SOON_DAYS)
+				: false;
+
+		const time = parseDate(it?.event_start_at)?.getTime();
+		// 沒有日期：一律排最後（desc/asc 都一致）
+		const safeTime = Number.isFinite(time) ? time : -Infinity;
+
+		return {
+			...it,
+			_tags: tags,
+			_tagKeys: tagKeys,
+			_status: status, // open|soon|ended|none
+			_endingSoon: endingSoon,
+			_time: safeTime,
+			_yearKey: getYearKey(it?.event_start_at),
+		};
+	});
+});
+
+/* =============================
+ * Status UI helpers (改用衍生欄位)
+ * ============================= */
+function getSignupStatus(it) {
+	return it?._status ?? "none";
+}
+function statusText(it) {
+	const s = getSignupStatus(it);
+	if (s === "open") return it?._endingSoon ? "報名即將截止" : "開放報名中";
+	if (s === "soon") return "尚未開始報名";
+	if (s === "ended") return "已截止報名";
+	return String(it?.class_name || "活動");
+}
+function statusPillClass(it) {
+	const s = getSignupStatus(it);
+	if (s === "open")
+		return it?._endingSoon ? "evtPill--ending" : "evtPill--open";
+	if (s === "soon") return "evtPill--soon";
+	if (s === "ended") return "evtPill--ended";
+	return "";
+}
+
+/* =============================
+ * Hashtags helper (改用衍生欄位，但保留相容)
+ * ============================= */
+function hashtags(it) {
+	if (!it) return [];
+	if (Array.isArray(it._tags)) return it._tags; // decorated 的
+	// fallback：舊資料也能跑
+	const s = it?.hashtag;
+	if (!s) return [];
+	return String(s)
+		.split(",")
+		.map((x) => x.trim())
+		.filter(Boolean);
+}
+
+/* =============================
+ * API
  * ============================= */
 const loadAllEvent = async () => {
 	try {
@@ -412,55 +469,45 @@ const resetAll = () => {
 	currentPage.value = 1;
 	selectedTag.value = "";
 };
-
 defineExpose({ searchByKeyword, resetToFirstPage, resetAll });
 
 /* =============================
- * Filters
+ * Filters（用 decorated）
  * ============================= */
-const byClass = computed(() => {
-	if (props.selectedClassId == null) return eventList.value;
-	return eventList.value.filter(
-		(it) => Number(it.class_id) === Number(props.selectedClassId)
-	);
-});
+const filtered = computed(() => {
+	const classId = props.selectedClassId;
+	const year = props.activeYear;
+	const tagKey = normalizeTagKey(selectedTag.value);
+	const status = props.statusFilter || "all";
 
-const byYear = computed(() => {
-	if (props.activeYear === "all") return byClass.value;
-	return byClass.value.filter(
-		(it) => getYearKey(it.event_start_at) === props.activeYear
-	);
-});
+	return decorated.value.filter((it) => {
+		if (classId != null && Number(it.class_id) !== Number(classId))
+			return false;
+		if (year !== "all" && it._yearKey !== year) return false;
 
-const byTag = computed(() => {
-	const key = normalizeTagKey(selectedTag.value);
-	if (!key) return byYear.value;
+		if (tagKey) {
+			if (!it._tagKeys?.includes(tagKey)) return false;
+		}
 
-	return byYear.value.filter((it) => {
-		const tags = hashtags(it).map((t) => normalizeTagKey(t));
-		return tags.includes(key);
+		if (status !== "all" && it._status !== status) return false;
+
+		return true;
 	});
-});
-
-const byStatus = computed(() => {
-	const f = props.statusFilter || "all";
-	if (f === "all") return byTag.value;
-	return byTag.value.filter((it) => getSignupStatus(it) === f);
 });
 
 /* =============================
  * Sort (pin first + date)
  * ============================= */
 const sorted = computed(() => {
-	const arr = [...byStatus.value];
+	const arr = [...filtered.value];
 	const pinRank = (x) => (x?.pin ? 0 : 1);
 
 	arr.sort((a, b) => {
 		const p = pinRank(a) - pinRank(b);
 		if (p !== 0) return p;
 
-		if (props.sort === "date_desc") return timeValue(b) - timeValue(a);
-		if (props.sort === "date_asc") return timeValue(a) - timeValue(b);
+		if (props.sort === "date_desc") return b._time - a._time;
+		if (props.sort === "date_asc") return a._time - b._time;
 		return 0;
 	});
 
@@ -471,9 +518,8 @@ const sorted = computed(() => {
  * Pagination
  * ============================= */
 const total = computed(() => sorted.value.length);
-
 const totalPages = computed(() =>
-	Math.max(1, Math.ceil(total.value / pageLimit))
+	Math.max(1, Math.ceil(total.value / pageLimit)),
 );
 
 const paginatedEvent = computed(() => {
@@ -493,21 +539,28 @@ watch(
 	],
 	() => {
 		currentPage.value = 1;
-	}
+	},
 );
 
 /* =============================
- * Emit：回報給父層
+ * Emit：total / years
  * ============================= */
 watch(
 	() => total.value,
 	() => emit("update:total", total.value),
-	{ immediate: true }
+	{ immediate: true },
 );
 
 const yearOptions = computed(() => {
+	// 邏輯：依「分類」抽年份（你原本 byClass 的精神）
+	const classId = props.selectedClassId;
 	const set = new Set(
-		byClass.value.map((it) => getYearKey(it.event_start_at)).filter(Boolean)
+		decorated.value
+			.filter((it) =>
+				classId == null ? true : Number(it.class_id) === Number(classId),
+			)
+			.map((it) => it._yearKey)
+			.filter(Boolean),
 	);
 	return Array.from(set).sort((a, b) => b.localeCompare(a));
 });
@@ -515,110 +568,32 @@ const yearOptions = computed(() => {
 watch(
 	() => yearOptions.value,
 	() => emit("update:years", yearOptions.value),
-	{ immediate: true }
+	{ immediate: true },
 );
 
-/* 初次載入 */
-onMounted(async () => {
-	await loadAllEvent();
-	emit("update:total", total.value);
-	emit("update:years", yearOptions.value);
-});
-
 /* =============================
- * UI：報名狀態 + 即將截止
- * ============================= */
-function getSignupStatus(it) {
-	const now = new Date();
-	const start = parseDate(it?.signup_start_at);
-	const end = parseDate(it?.signup_end_at);
-
-	if (!start && !end) return "none";
-	if (start && now < start) return "soon";
-	if (end && now > end) return "ended";
-	return "open";
-}
-
-const ENDING_SOON_DAYS = 7;
-
-function isEndingSoon(it, days = ENDING_SOON_DAYS) {
-	const now = new Date();
-	const end = parseDate(it?.signup_end_at);
-	if (!end) return false;
-	if (now > end) return false;
-
-	const diffDays = (end.getTime() - now.getTime()) / 86400000;
-	return Math.ceil(diffDays) <= days;
-}
-
-function statusText(it) {
-	const s = getSignupStatus(it);
-	if (s === "open") {
-		if (isEndingSoon(it, 7)) return "報名即將截止";
-		return "開放報名中";
-	}
-	if (s === "soon") return "尚未開始";
-	if (s === "ended") return "已截止報名";
-	return String(it?.class_name || "活動");
-}
-
-function statusPillClass(it) {
-	const s = getSignupStatus(it);
-	if (s === "open") {
-		if (isEndingSoon(it, 7)) return "evtPill--ending";
-		return "evtPill--open";
-	}
-	if (s === "soon") return "evtPill--soon";
-	if (s === "ended") return "evtPill--ended";
-	return "";
-}
-
-/* =============================
- * Text helpers
- * ============================= */
-function htmlToText(html) {
-	if (!html) return "";
-	const doc = new DOMParser().parseFromString(String(html), "text/html");
-	const text = doc.body?.textContent || "";
-	return text.replace(/\s+/g, " ").trim();
-}
-
-function excerpt(it, maxChars = 120) {
-	if (!it) return "";
-	const raw =
-		(it.description || "").trim() ||
-		(it.desc || "").trim() ||
-		htmlToText(it.content || "");
-
-	if (!raw) return "";
-	return raw.length > maxChars ? raw.slice(0, maxChars) + "…" : raw;
-}
-
-function hashtags(it) {
-	const s = it?.hashtag;
-	if (!s) return [];
-	return String(s)
-		.split(",")
-		.map((x) => x.trim())
-		.filter(Boolean);
-}
-
-/* =============================
- * Modal state (原生 dialog)
+ * Modal (dialog)
  * ============================= */
 const dlg = ref(null);
 const activeEvt = ref(null);
 
+function lockScroll() {
+	document.documentElement.style.overflow = "hidden";
+}
+function unlockScroll() {
+	document.documentElement.style.overflow = "";
+}
+
 const openEvt = (it) => {
 	activeEvt.value = it || null;
 	if (dlg.value && !dlg.value.open) dlg.value.showModal();
-	document.documentElement.style.overflow = "hidden";
+	lockScroll();
 };
 
 const closeEvt = () => {
 	if (dlg.value && dlg.value.open) dlg.value.close();
 	activeEvt.value = null;
-	document.documentElement.style.overflow = "";
+	unlockScroll();
 };
 
 const onBackdropClick = (e) => {
@@ -630,14 +605,19 @@ const onCancel = (e) => {
 	closeEvt();
 };
 
-onMounted(() => {
-	if (!dlg.value) return;
-	dlg.value.addEventListener("cancel", onCancel);
+/* =============================
+ * Lifecycle
+ * ============================= */
+onMounted(async () => {
+	await loadAllEvent();
+	emit("update:total", total.value);
+	emit("update:years", yearOptions.value);
+
+	if (dlg.value) dlg.value.addEventListener("cancel", onCancel);
 });
 
 onBeforeUnmount(() => {
-	if (!dlg.value) return;
-	dlg.value.removeEventListener("cancel", onCancel);
-	document.documentElement.style.overflow = "";
+	if (dlg.value) dlg.value.removeEventListener("cancel", onCancel);
+	unlockScroll();
 });
 </script>
