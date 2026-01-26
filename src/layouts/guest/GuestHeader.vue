@@ -1,5 +1,5 @@
 <template>
-  <!-- <LoadingAnimation /> -->
+  <LoadingAnimation />
   <Navbar />
   <FabFadein />
   <!-- <Fab /> -->

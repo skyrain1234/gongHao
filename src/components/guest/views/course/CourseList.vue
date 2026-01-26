@@ -85,15 +85,15 @@
 						<p class="tccItem__text">{{ value.description }}</p>
 
 						<div class="tccInfoRow">
-							<div class="tccInfo">
+							<div class="tccInfo" v-if="value.tag_title_1">
 								<div class="tccInfo__k">{{ value.tag_title_1 }}</div>
 								<div class="tccInfo__v">{{ value.tag_content_1 }}</div>
 							</div>
-							<div class="tccInfo">
+							<div class="tccInfo" v-if="value.tag_title_2">
 								<div class="tccInfo__k">{{ value.tag_title_2 }}</div>
 								<div class="tccInfo__v">{{ value.tag_content_2 }}</div>
 							</div>
-							<div class="tccInfo">
+							<div class="tccInfo" v-if="value.tag_title_3">
 								<div class="tccInfo__k">{{ value.tag_title_3 }}</div>
 								<div class="tccInfo__v">{{ value.tag_content_3 }}</div>
 							</div>
@@ -229,9 +229,12 @@ function openModal() {
 	isModalOpen.value = true;
 	modalQuery.value = "";
 }
+function closeModal() {
+	isModalOpen.value = false;
+}
 
 function pickFilter(filterName) {
-
+	closeModal();
 	// 套用 filter（沿用你原本 DOM 方式）
 	applyFilter(filterName);
 	playSequential();

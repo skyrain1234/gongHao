@@ -175,6 +175,17 @@
 						</div>
 
 						<div class="mega-row">
+							<div class="mega-title">活動</div>
+							<div class="mega-links">
+								<router-link :to="{ path: `/${currentLang}/event`}">活動一覽</router-link>
+								<!-- <a href="events-music.html">跨世代音樂饗宴</a>
+								<a href="events-run.html">跨世代路跑</a>
+								<a href="events-hakka.html">客家文化相關活動</a>
+								<a href="events-plan-2026-2028.html">2026–2028 重大計畫一覽</a> -->
+							</div>
+						</div>
+
+						<div class="mega-row">
 							<div class="mega-title">主題課程</div>
 							<div class="mega-links">
 								<router-link :to="{ path: `/${currentLang}/course`}">主題課程一覽</router-link>
@@ -182,17 +193,6 @@
 								<a href="course-visit.html">幼老共下來作客</a>
 								<a href="course-chorus.html">花樹下歌聲揚（老幼合唱）</a>
 								<a href="course-boardgame.html">老幼大富翁（益智/桌遊）</a> -->
-							</div>
-						</div>
-
-						<div class="mega-row">
-							<div class="mega-title">活動 Events</div>
-							<div class="mega-links">
-								<router-link :to="{ path: `/${currentLang}/event`}">活動一覽</router-link>
-								<!-- <a href="events-music.html">跨世代音樂饗宴</a>
-								<a href="events-run.html">跨世代路跑</a>
-								<a href="events-hakka.html">客家文化相關活動</a>
-								<a href="events-plan-2026-2028.html">2026–2028 重大計畫一覽</a> -->
 							</div>
 						</div>
 

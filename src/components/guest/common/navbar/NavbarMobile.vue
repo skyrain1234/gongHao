@@ -18,7 +18,11 @@
 
 		<div class="offcanvas-body">
 			<!-- ✅ Home -->
-			<router-link class="m-home" :to="`/${currentLang}`" @click="closeOffcanvas">
+			<router-link
+				class="m-home"
+				:to="`/${currentLang}`"
+				@click="closeOffcanvas"
+			>
 				<span>首頁 Home</span>
 				<i class="bi bi-arrow-right"></i>
 			</router-link>
@@ -38,7 +42,11 @@
 							協會介紹 About
 						</button>
 					</h2>
-					<div id="mC1" class="accordion-collapse collapse" data-bs-parent="#mAcc">
+					<div
+						id="mC1"
+						class="accordion-collapse collapse"
+						data-bs-parent="#mAcc"
+					>
 						<div class="accordion-body pt-2">
 							<router-link
 								class="m-item"
@@ -97,7 +105,11 @@
 							最新消息 News
 						</button>
 					</h2>
-					<div id="mC2" class="accordion-collapse collapse" data-bs-parent="#mAcc">
+					<div
+						id="mC2"
+						class="accordion-collapse collapse"
+						data-bs-parent="#mAcc"
+					>
 						<div class="accordion-body pt-2">
 							<!-- ✅ 這裡我用「分類列表」的路由命名：newsListByCategory
 							     你若後端 slug 是 notice/gallery/media/publications 請維持一致 -->
@@ -149,6 +161,39 @@
 				</div>
 
 				<!-- =====================
+				     Events
+				     ===================== -->
+				<div class="accordion-item">
+					<h2 class="accordion-header" id="mH4">
+						<button
+							class="accordion-button collapsed"
+							type="button"
+							data-bs-toggle="collapse"
+							data-bs-target="#mC4"
+						>
+							活動 Events
+						</button>
+					</h2>
+					<div
+						id="mC4"
+						class="accordion-collapse collapse"
+						data-bs-parent="#mAcc"
+					>
+						<div class="accordion-body pt-2">
+							<router-link
+								class="m-item"
+								:to="{ path: `/${currentLang}/event` }"
+								@click="closeOffcanvas"
+							>
+								活動一覽
+							</router-link>
+
+							<!-- 若未來有事件分類頁，再補 name/params -->
+						</div>
+					</div>
+				</div>
+
+				<!-- =====================
 				     Course
 				     ===================== -->
 				<div class="accordion-item">
@@ -162,7 +207,11 @@
 							老幼共學主題課程 Course
 						</button>
 					</h2>
-					<div id="mC3" class="accordion-collapse collapse" data-bs-parent="#mAcc">
+					<div
+						id="mC3"
+						class="accordion-collapse collapse"
+						data-bs-parent="#mAcc"
+					>
 						<div class="accordion-body pt-2">
 							<!-- ✅ 先給「一覽」最穩：避免你還沒做每堂課 detail route -->
 							<router-link
@@ -189,35 +238,6 @@
 				</div>
 
 				<!-- =====================
-				     Events
-				     ===================== -->
-				<div class="accordion-item">
-					<h2 class="accordion-header" id="mH4">
-						<button
-							class="accordion-button collapsed"
-							type="button"
-							data-bs-toggle="collapse"
-							data-bs-target="#mC4"
-						>
-							活動 Events
-						</button>
-					</h2>
-					<div id="mC4" class="accordion-collapse collapse" data-bs-parent="#mAcc">
-						<div class="accordion-body pt-2">
-							<router-link
-								class="m-item"
-								:to="{ path: `/${currentLang}/event` }"
-								@click="closeOffcanvas"
-							>
-								活動一覽
-							</router-link>
-
-							<!-- 若未來有事件分類頁，再補 name/params -->
-						</div>
-					</div>
-				</div>
-
-				<!-- =====================
 				     Training
 				     ===================== -->
 				<div class="accordion-item">
@@ -231,7 +251,11 @@
 							課程與人才培訓 Training
 						</button>
 					</h2>
-					<div id="mC5" class="accordion-collapse collapse" data-bs-parent="#mAcc">
+					<div
+						id="mC5"
+						class="accordion-collapse collapse"
+						data-bs-parent="#mAcc"
+					>
 						<div class="accordion-body pt-2">
 							<!-- ✅ 如果你還沒建 training 路由，先用 # 占位；有路由就改成 router-link -->
 							<router-link
@@ -266,7 +290,11 @@
 							研究與出版 Research & Publications
 						</button>
 					</h2>
-					<div id="mC6" class="accordion-collapse collapse" data-bs-parent="#mAcc">
+					<div
+						id="mC6"
+						class="accordion-collapse collapse"
+						data-bs-parent="#mAcc"
+					>
 						<div class="accordion-body pt-2">
 							<router-link
 								class="m-item"
@@ -284,13 +312,13 @@
 								研究報告
 							</router-link>
 
-							<router-link
+							<!-- <router-link
 								class="m-item"
 								:to="{ path: `/${currentLang}/research/open-materials` }"
 								@click="closeOffcanvas"
 							>
 								公開教材下載
-							</router-link>
+							</router-link> -->
 
 							<router-link
 								class="m-item"
@@ -325,7 +353,11 @@
 							會員專區 Members
 						</button>
 					</h2>
-					<div id="mC7" class="accordion-collapse collapse" data-bs-parent="#mAcc">
+					<div
+						id="mC7"
+						class="accordion-collapse collapse"
+						data-bs-parent="#mAcc"
+					>
 						<div class="accordion-body pt-2">
 							<router-link
 								class="m-item"
@@ -368,7 +400,11 @@
 							合作夥伴 Partnerships
 						</button>
 					</h2>
-					<div id="mC8" class="accordion-collapse collapse" data-bs-parent="#mAcc">
+					<div
+						id="mC8"
+						class="accordion-collapse collapse"
+						data-bs-parent="#mAcc"
+					>
 						<div class="accordion-body pt-2">
 							<router-link
 								class="m-item"
@@ -419,7 +455,11 @@
 							聯絡我們 Contact
 						</button>
 					</h2>
-					<div id="mC9" class="accordion-collapse collapse" data-bs-parent="#mAcc">
+					<div
+						id="mC9"
+						class="accordion-collapse collapse"
+						data-bs-parent="#mAcc"
+					>
 						<div class="accordion-body pt-2">
 							<router-link
 								class="m-item"
